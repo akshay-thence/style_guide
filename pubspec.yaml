@@ -1,0 +1,36 @@
+name: thence_style_guide
+description: A Very Good Project created by Very Good CLI.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  bloc: ^8.0.3
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^1.1.4
+  google_fonts: ^3.0.1
+  intl: ^0.17.0
+  pixel_perfect: ^1.1.1
+  style_guide_ui:
+    path: packages/style_guide_ui
+
+dev_dependencies:
+  bloc_test: ^9.0.3
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+  - assets/svg/icons/
+  - assets/screenshots/

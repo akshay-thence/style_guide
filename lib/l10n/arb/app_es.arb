@@ -1,0 +1,9 @@
+{
+    "@@locale": "es",
+    "counterAppBarTitle": "Contador",
+    "@counterAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página del contador"
+    },
+    "changeColors":"Change colors",
+    "chooseColorForYourProject":"Choose colors for your project"
+}
