@@ -2,7 +2,7 @@ part of 'color_picker_cubit.dart';
 
 class ColorPickerState {
   const ColorPickerState._({
-    this.selected,
+    this.selectedColor,
     this.textFieldFocused = false,
   });
 
@@ -13,11 +13,11 @@ class ColorPickerState {
     bool? textFieldFocused,
   }) {
     return ColorPickerState._(
-      selected: selected ?? this.selected,
+      selectedColor: selected ?? this.selectedColor,
       textFieldFocused: textFieldFocused ?? this.textFieldFocused,
     );
   }
 
-  final Color? selected;
+  final Color? selectedColor;
   final bool textFieldFocused;
 }

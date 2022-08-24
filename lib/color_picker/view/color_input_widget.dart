@@ -14,9 +14,18 @@ class ColorInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void updateColor(String value) {
+      if (value.trim().length != 7) return;
+
+      final colorValue = int.tryParse('0xff${value.replaceAll('#', '').trim()}');
+      if (colorValue != null) {
+        context.read<ColorPickerCubit>().changeColor(Color(colorValue));
+      }
+    }
+
     return BlocConsumer<ColorPickerCubit, ColorPickerState>(
       listener: (context, state) {
-        controller.text = state.selected!.toHexTriplet();
+        controller.text = state.selectedColor!.toHexTriplet();
       },
       builder: (context, state) {
         return Padding(
@@ -24,25 +33,7 @@ class ColorInputWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Visibility(
-                visible: state.textFieldFocused,
-                child: AnimatedContainer(
-                  duration: Durations.medium,
-                  width: 48,
-                  height: 48,
-                  decoration: const BoxDecoration(
-                    color: AppColor.lightGrey4,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: SvgPicture.asset(
-                      AppIcons.cross,
-                      color: AppColor.grey,
-                    ),
-                  ),
-                ),
-              ),
+              _iconButton(AppIcons.cross, AppColor.lightGrey4, () {}),
               AnimatedContainer(
                 duration: Durations.medium,
                 decoration: BoxDecoration(
@@ -66,8 +57,16 @@ class ColorInputWidget extends StatelessWidget {
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
                             ),
-                            onSubmitted: (_) => context.read<ColorPickerCubit>().updateTextFieldFocus(isFocused: false),
-                            onTap: () => context.read<ColorPickerCubit>().updateTextFieldFocus(isFocused: true),
+                            onChanged: updateColor,
+                            onSubmitted: (value) {
+                              updateColor(value);
+                              context.read<ColorPickerCubit>().updateTextFieldFocus(isFocused: false);
+                            },
+                            onTap: () {
+                              context.read<ColorPickerCubit>().updateTextFieldFocus(isFocused: true);
+                              controller.selection =
+                                  TextSelection.fromPosition(TextPosition(offset: controller.text.length));
+                            },
                           ),
                         ),
                       ),
@@ -85,7 +84,7 @@ class ColorInputWidget extends StatelessWidget {
                         height: 20,
                         width: 20,
                         decoration: BoxDecoration(
-                          color: state.selected,
+                          color: state.selectedColor,
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
@@ -100,25 +99,34 @@ class ColorInputWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Visibility(
-                visible: state.textFieldFocused,
-                child: Container(
-                  width: 48,
-                  height: 48,
-                  decoration: const BoxDecoration(
-                    color: AppColor.primary60,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: SvgPicture.asset(
-                      AppIcons.tick,
-                      color: AppColor.grey,
-                    ),
-                  ),
-                ),
-              ),
+              _iconButton(AppIcons.tick, AppColor.primary60, () {}),
             ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _iconButton(String icon, Color color, VoidCallback onTap) {
+    return BlocBuilder<ColorPickerCubit, ColorPickerState>(
+      builder: (context, state) {
+        return AnimatedOpacity(
+          duration: Durations.fastest,
+          opacity: state.textFieldFocused ? 1 : 0,
+          child: Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              onPressed: onTap,
+              icon: SvgPicture.asset(
+                icon,
+                color: AppColor.grey,
+              ),
+            ),
           ),
         );
       },

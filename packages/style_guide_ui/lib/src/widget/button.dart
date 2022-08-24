@@ -46,20 +46,23 @@ class AppButton extends StatelessWidget {
               : 9.0,
     );
 
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      splashColor: Colors.white.withOpacity(0.1),
-      highlightColor: Colors.white.withOpacity(0.1),
-      child: Ink(
-        padding: padding,
-        height: height,
-        decoration: BoxDecoration(
-          color: buttonColor,
-          borderRadius: BorderRadius.circular(16),
-          border: buttonType == ButtonType.outlined ? Border.all(color: AppColor.lightGrey3) : null,
+    return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        splashColor: Colors.white.withOpacity(0.1),
+        highlightColor: Colors.white.withOpacity(0.1),
+        child: Container(
+          padding: padding,
+          height: height,
+          decoration: BoxDecoration(
+            color: buttonColor,
+            borderRadius: BorderRadius.circular(16),
+            border: buttonType == ButtonType.outlined ? Border.all(color: AppColor.lightGrey3) : null,
+          ),
+          child: Center(child: Text(title, style: AppTextStyle.button1)),
         ),
-        child: Center(child: Text(title, style: AppTextStyle.button1)),
       ),
     );
   }

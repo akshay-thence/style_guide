@@ -7,7 +7,7 @@ import 'package:style_guide_ui/style_guide_ui.dart';
 
 import 'package:thence_style_guide/l10n/l10n.dart';
 
-import '../../color_picker/color_picker.dart';
+import '../../utils/bottom_sheets.dart';
 import '../cubit/color_cubit.dart';
 
 enum ColorType { primary, secondary, semantic, neutral }
@@ -43,45 +43,28 @@ class ColorView extends StatelessWidget {
                   colors: state.primary,
                   title: 'Primary',
                   subtitle: 'Brand color used for buttons and actions',
+                  colorType: ColorType.primary,
                 ),
                 const SizedBox(height: 10),
                 _ColorListWidget(
                   colors: state.semantic,
                   title: 'Semantic',
                   subtitle: 'Success, error, warning, information',
+                  colorType: ColorType.semantic,
                 ),
                 const SizedBox(height: 10),
                 _ColorListWidget(
                   colors: state.neutral,
                   title: 'Neutral',
                   subtitle: 'Text, container boarder, system icon',
+                  colorType: ColorType.neutral,
                 ),
                 const SizedBox(height: 10),
                 _ColorListWidget(
                   colors: state.secondary,
                   title: 'Secondary Colour',
                   subtitle: 'For highlight, acents, tags and graphs',
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: AppButton(
-                          title: 'Discard',
-                          buttonType: ButtonType.outlined,
-                          onTap: () {},
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: AppButton(
-                          title: 'Apply',
-                          onTap: () {},
-                        ),
-                      )
-                    ],
-                  ),
+                  colorType: ColorType.secondary,
                 ),
               ],
             ),
@@ -97,11 +80,13 @@ class _ColorListWidget extends StatelessWidget {
     required this.colors,
     required this.title,
     required this.subtitle,
+    required this.colorType,
   });
 
   final List<String> colors;
   final String title;
   final String subtitle;
+  final ColorType colorType;
 
   @override
   Widget build(BuildContext context) {
@@ -133,10 +118,11 @@ class _ColorListWidget extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             if (index == colors.length) {
               return IconButton(
-                onPressed: () => openColorPicker(context, null),
+                onPressed: () => addNewColor(context, colorType),
                 icon: const Icon(Icons.add),
               );
             }
+
             return ColorBlock(color: converHexToColor(colors[index]));
           },
         ),
@@ -144,18 +130,7 @@ class _ColorListWidget extends StatelessWidget {
     );
   }
 
-  void openColorPicker(BuildContext context, Color? color) {
-    showModalBottomSheet<String>(
-      context: context,
-      backgroundColor: Colors.white,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      builder: (_) => ColorPickerPage(defaultColor: color),
-    );
+  void addNewColor(BuildContext context, ColorType colorType) {
+    final res = pickColor(context);
   }
 }

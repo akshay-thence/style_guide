@@ -24,6 +24,7 @@ class ColorPickerPage extends StatelessWidget {
 class ColorPickerView extends StatefulWidget {
   const ColorPickerView({super.key, required this.defaultColor});
   final Color defaultColor;
+
   @override
   State<ColorPickerView> createState() => _ColorPickerViewState();
 }
@@ -62,21 +63,23 @@ class _ColorPickerViewState extends State<ColorPickerView> {
 
     return BlocSelector<ColorPickerCubit, ColorPickerState, bool>(
       selector: (state) {
-        defaultColor = state.selected!;
+        defaultColor = state.selectedColor!;
         return state.textFieldFocused;
       },
       builder: (context, textFieldFocused) {
         return AnimatedContainer(
-          duration: Durations.medium,
+          duration: textFieldFocused ? Durations.medium : Durations.fast,
           height: textFieldFocused ? keyboardHeight : colorWheelHeight + 30,
           child: textFieldFocused
               ? null
-              : HueRingPicker(
-                  pickerAreaBorderRadius: BorderRadius.circular(1000),
-                  colorPickerHeight: colorWheelHeight,
-                  pickerColor: defaultColor,
-                  onColorChanged: (color) => context.read<ColorPickerCubit>().changeColor(color),
-                  hueRingStrokeWidth: 40,
+              : SingleChildScrollView(
+                  child: HueRingPicker(
+                    pickerAreaBorderRadius: BorderRadius.circular(1000),
+                    colorPickerHeight: colorWheelHeight,
+                    pickerColor: defaultColor,
+                    onColorChanged: (color) => context.read<ColorPickerCubit>().changeColor(color),
+                    hueRingStrokeWidth: 40,
+                  ),
                 ),
         );
       },
@@ -99,7 +102,7 @@ class _ColorPickerViewState extends State<ColorPickerView> {
           Expanded(
             child: AppButton(
               title: 'Apply',
-              onTap: () => Navigator.of(context).pop(context.read<ColorPickerCubit>().state.selected),
+              onTap: () => Navigator.of(context).pop(context.read<ColorPickerCubit>().state.selectedColor),
             ),
           )
         ],
