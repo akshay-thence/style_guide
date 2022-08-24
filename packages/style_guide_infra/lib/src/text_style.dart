@@ -37,6 +37,11 @@ class AppTextStyle {
     fontSize: 14,
     fontWeight: FontWeight.w600,
   );
+  static TextStyle body2Nor = GoogleFonts.sora(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: AppColor.grey,
+  );
   static TextStyle caption1 = GoogleFonts.sora(
     fontSize: 12,
     fontWeight: FontWeight.w400,
@@ -47,10 +52,7 @@ class AppTextStyle {
     fontSize: 12,
     fontWeight: FontWeight.w600,
   );
-  static TextStyle button1 = GoogleFonts.sora(
-    fontSize: 14,
-    fontWeight: FontWeight.w600,
-  );
+  static TextStyle button1 = GoogleFonts.sora(fontSize: 14, fontWeight: FontWeight.w600, color: AppColor.grey);
   static TextStyle button2 = GoogleFonts.sora(
     fontSize: 12,
     fontWeight: FontWeight.w600,

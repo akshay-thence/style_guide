@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pixel_perfect/pixel_perfect.dart';
+import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
+import 'package:thence_style_guide/routes.dart';
 
 import '../../l10n/l10n.dart';
 
@@ -15,7 +17,7 @@ class SettingPage extends StatelessWidget {
     return PixelPerfect(
       assetPath: 'assets/screenshots/Settings.png',
       scale: 2,
-      child: Scaffold(
+      child: CustomScaffold(
         appBar: const CustomAppBar(),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +35,7 @@ class SettingPage extends StatelessWidget {
                 title: _settings[index].title,
                 subTitle: _settings[index].subTitle,
                 icon: _settings[index].icon,
-                onTap: _settings[index].onTap,
+                onTap: () => Navigator.of(context).pushNamed(_settings[index].routeName),
               ),
             )
           ],
@@ -58,74 +60,78 @@ class _ListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 78,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: AppColor.primary20,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: SvgPicture.asset(
-                  icon,
-                  height: 24,
-                  width: 24,
-                  color: AppColor.primary,
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: onTap,
+      child: SizedBox(
+        height: 78,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: AppColor.primary20,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                  child: SvgPicture.asset(
+                    icon,
+                    height: 24,
+                    width: 24,
+                    color: AppColor.primary,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: AppTextStyle.title2),
-                  const SizedBox(height: 8),
-                  Text(subTitle, style: AppTextStyle.caption1),
-                ],
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: AppTextStyle.title2),
+                    const SizedBox(height: 8),
+                    Text(subTitle, style: AppTextStyle.caption1),
+                  ],
+                ),
               ),
-            ),
-            SvgPicture.asset(
-              AppIcons.arrowRight,
-              color: AppColor.lightGrey2,
-            ),
-          ],
+              SvgPicture.asset(
+                AppIcons.arrowRight,
+                color: AppColor.lightGrey2,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-var _settings = <SettingEntity>[
+final _settings = <SettingEntity>[
   SettingEntity(
     icon: AppIcons.typeFace,
     title: 'Typeface',
     subTitle: 'Primary, display typeface',
-    onTap: () {},
+    routeName: '',
   ),
   SettingEntity(
     icon: AppIcons.typeScale,
     title: 'Typescale',
     subTitle: 'Weight, Size, character spacing...',
-    onTap: () {},
+    routeName: '',
   ),
   SettingEntity(
     icon: AppIcons.colorsSwatch,
     title: 'Colors',
     subTitle: 'Veiw pallate primary, secondary..',
-    onTap: () {},
+    routeName: AppRouter.colors,
   ),
   SettingEntity(
     icon: AppIcons.cornerRadius,
     title: 'Corner radius',
     subTitle: 'Buttons, chips, input fields...',
-    onTap: () {},
+    routeName: '',
   ),
 ];
 
@@ -134,11 +140,11 @@ class SettingEntity {
     required this.title,
     required this.subTitle,
     required this.icon,
-    required this.onTap,
+    required this.routeName,
   });
 
   final String title;
   final String subTitle;
   final String icon;
-  final VoidCallback onTap;
+  final String routeName;
 }

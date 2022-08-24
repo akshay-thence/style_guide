@@ -1,9 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../theme/icons.dart';
-import '../theme/text_style.dart';
+import 'package:style_guide_infra/style_guide_infra.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -26,42 +23,45 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: SizedBox(
-        height: subTitle == null ? height : 78,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SvgPicture.asset(
-                AppIcons.arrowBack,
-                height: 24,
-                width: 24,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (title != null)
-                      Text(
-                        title!,
-                        style: AppTextStyle.title1,
-                      ),
-                    if (subTitle != null) ...[
-                      const SizedBox(height: 8),
-                      Text(
-                        subTitle!,
-                        style: AppTextStyle.caption1,
-                      ),
-                    ]
-                  ],
+    return Container(
+      color: AppColor.white,
+      child: SafeArea(
+        bottom: false,
+        child: SizedBox(
+          height: subTitle == null ? height : 78,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  AppIcons.arrowBack,
+                  height: 24,
+                  width: 24,
                 ),
-              ),
-              const SizedBox(width: 24),
-            ],
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (title != null)
+                        Text(
+                          title!,
+                          style: AppTextStyle.title1,
+                        ),
+                      if (subTitle != null) ...[
+                        const SizedBox(height: 8),
+                        Text(
+                          subTitle!,
+                          style: AppTextStyle.caption1,
+                        ),
+                      ]
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 24),
+              ],
+            ),
           ),
         ),
       ),

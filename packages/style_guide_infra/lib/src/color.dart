@@ -29,8 +29,8 @@ class AppColor {
   static const lightGrey1 = Color(0xff6E7480);
   static const lightGrey2 = Color(0xffA1A7B3);
   static const lightGrey3 = Color(0xffDFE3EB);
-  static const lightGrey4 = Color(0xffFFFFFF);
-  static const white = Color(0xff6E7480);
+  static const lightGrey4 = Color(0xffFCFBFA);
+  static const white = Color(0xffFFFFFF);
 
   // Supporting colors
   static const success = Color(0xff1AA36F);
@@ -38,4 +38,19 @@ class AppColor {
   static const error = Color(0xffED1455);
   static const errorGb = Color(0xffFC9F9F);
   static const warn = Color(0xffFFD260);
+
+  static const background = Color(0xffE5E5E5);
+}
+
+Color converHexToColor(String color) {
+  var hexColor = color.replaceAll('#', '');
+  late Color mColor;
+
+  if (hexColor.length == 6) {
+    hexColor = 'FF$color';
+  }
+  if (hexColor.length == 8) {
+    mColor = Color(int.parse(hexColor, radix: 16));
+  }
+  return mColor;
 }

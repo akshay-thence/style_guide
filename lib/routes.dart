@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'settings/view/settings_page.dart';
+import 'colors/colors.dart';
+import 'settings/settings.dart';
 
 class AppRouter {
   static const String settings = '/home';
@@ -11,6 +12,9 @@ class AppRouter {
     switch (r.name) {
       case settings:
         return _materialRoute(const SettingPage());
+
+      case colors:
+        return _materialRoute(const ColorPage());
 
       default:
         return _materialRoute(const ColoredBox(color: Colors.red));

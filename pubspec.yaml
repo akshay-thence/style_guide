@@ -17,6 +17,8 @@ dependencies:
   google_fonts: ^3.0.1
   intl: ^0.17.0
   pixel_perfect: ^1.1.1
+  style_guide_infra:
+    path: packages/style_guide_infra
   style_guide_ui:
     path: packages/style_guide_ui
 

@@ -6,5 +6,6 @@
     },
     "changeColors":"Change colors",
     "chooseColorForYourProject":"Choose colors for your project",
-    "settings":"Settings"
+    "settings":"Settings",
+    "colors":"Colors"
 }
