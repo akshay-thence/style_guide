@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 
 class AppColor {
@@ -53,4 +55,12 @@ Color converHexToColor(String color) {
     mColor = Color(int.parse(hexColor, radix: 16));
   }
   return mColor;
+}
+
+extension ColorExtension on Color {
+  bool isDarkColor() {
+    return (computeLuminance() > 0.5) ? false : true;
+  }
+
+  String toHexTriplet() => '#${(value & 0xFFFFFF).toRadixString(16).padLeft(6, '0').toUpperCase()}';
 }

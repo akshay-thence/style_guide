@@ -10,16 +10,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.height = 56,
     this.subTitle,
     this.title,
+    this.trailingIcon,
+    this.onTrailingIconTap,
   });
 
   @override
   Size get preferredSize => Size.fromHeight(subTitle == null ? height : 78);
 
   final bool centerTitle;
+
   final bool showBackButton;
   final double height;
+
   final String? subTitle;
   final String? title;
+
+  final String? trailingIcon;
+  final VoidCallback? onTrailingIconTap;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +69,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 24),
+                if (trailingIcon != null)
+                  IconButton(
+                    constraints: const BoxConstraints(),
+                    padding: EdgeInsets.zero,
+                    icon: SvgPicture.asset(
+                      trailingIcon!,
+                      color: AppColor.black,
+                    ),
+                    onPressed: onTrailingIconTap,
+                  )
+                else
+                  const SizedBox(width: 24),
               ],
             ),
           ),

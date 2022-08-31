@@ -1,37 +1,22 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
+import 'package:style_guide_ui/src/widget/popup_menu_item.dart';
 
 class ColorBlock extends StatelessWidget {
   const ColorBlock({
     Key? key,
     required this.color,
+    this.onEditColor,
+    this.onDeleteColor,
   }) : super(key: key);
 
   final Color color;
+  final VoidCallback? onEditColor;
+  final VoidCallback? onDeleteColor;
 
   @override
   Widget build(BuildContext context) {
-    _buildPopupMenuItem<T>({required T value, required String icon, required String text}) {
-      return PopupMenuItem<T>(
-        value: value,
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              icon,
-              color: AppColor.grey,
-            ),
-            const SizedBox(width: 12),
-            Text(
-              text,
-              style: AppTextStyle.body2,
-            ),
-          ],
-        ),
-      );
-    }
-
     _buildPopupMenuButton() {
       return PopupMenuButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -39,19 +24,19 @@ class ColorBlock extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: SvgPicture.asset(
             AppIcons.menu,
-            color: AppColor.white,
+            color: color.isDarkColor() ? AppColor.white : AppColor.lightGrey1,
           ),
         ),
-        itemBuilder: (_) => <PopupMenuItem<String>>[
-          _buildPopupMenuItem(
-            value: 'edit',
+        itemBuilder: (_) => <CustomPopListTile>[
+          CustomPopListTile(
             icon: AppIcons.edit,
             text: 'Edit color',
+            onTap: onEditColor,
           ),
-          _buildPopupMenuItem(
-            value: 'delete',
+          CustomPopListTile(
             icon: AppIcons.delete,
             text: 'Delete color',
+            onTap: onDeleteColor,
           ),
         ],
       );
@@ -63,7 +48,7 @@ class ColorBlock extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppColor.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: AppColor.black.withOpacity(0.1),
@@ -80,6 +65,7 @@ class ColorBlock extends StatelessWidget {
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.circular(12),
+                border: color == Colors.white ? Border.all(color: AppColor.lightGrey3) : null,
               ),
               alignment: Alignment.topRight,
               child: _buildPopupMenuButton(),

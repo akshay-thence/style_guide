@@ -6,6 +6,7 @@ import 'settings/settings.dart';
 class AppRouter {
   static const String settings = '/home';
   static const String colors = '/colors';
+  static const String createColor = '/CreateColor';
 
   Route onGenerateRoute(RouteSettings r) {
     // AppLogger.s(settings.name.toString(), tag: 'route_name');
@@ -14,7 +15,10 @@ class AppRouter {
         return _materialRoute(const SettingPage());
 
       case colors:
-        return _materialRoute(const ColorPage());
+        return _materialRoute(const ViewColorPage());
+
+      case createColor:
+        return _materialRoute(const CreateColorPage());
 
       default:
         return _materialRoute(const ColoredBox(color: Colors.red));

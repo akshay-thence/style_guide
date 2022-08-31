@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 import 'package:thence_style_guide/color_picker/view/color_input_widget.dart';
-import 'package:thence_style_guide/utils/extensions.dart';
 
 import '../cubit/color_picker_cubit.dart';
 
@@ -31,15 +30,15 @@ class ColorPickerView extends StatefulWidget {
 
 class _ColorPickerViewState extends State<ColorPickerView> {
   TextEditingController controller = TextEditingController();
-  late Color defaultColor;
+  late Color pickerColor;
 
   @override
   void initState() {
     super.initState();
 
-    defaultColor = widget.defaultColor;
-    controller.text = defaultColor.toHexTriplet();
-    context.read<ColorPickerCubit>().changeColor(defaultColor);
+    pickerColor = widget.defaultColor;
+    controller.text = pickerColor.toHexTriplet();
+    context.read<ColorPickerCubit>().changeColor(pickerColor);
   }
 
   @override
@@ -63,12 +62,13 @@ class _ColorPickerViewState extends State<ColorPickerView> {
 
     return BlocSelector<ColorPickerCubit, ColorPickerState, bool>(
       selector: (state) {
-        defaultColor = state.selectedColor!;
+        pickerColor = state.selectedColor!;
         return state.textFieldFocused;
       },
       builder: (context, textFieldFocused) {
         return AnimatedContainer(
-          duration: textFieldFocused ? Durations.medium : Durations.fast,
+          curve: Curves.easeOut,
+          duration: textFieldFocused ? Durations.slow : Durations.fast,
           height: textFieldFocused ? keyboardHeight : colorWheelHeight + 30,
           child: textFieldFocused
               ? null
@@ -76,7 +76,7 @@ class _ColorPickerViewState extends State<ColorPickerView> {
                   child: HueRingPicker(
                     pickerAreaBorderRadius: BorderRadius.circular(1000),
                     colorPickerHeight: colorWheelHeight,
-                    pickerColor: defaultColor,
+                    pickerColor: pickerColor,
                     onColorChanged: (color) => context.read<ColorPickerCubit>().changeColor(color),
                     hueRingStrokeWidth: 40,
                   ),

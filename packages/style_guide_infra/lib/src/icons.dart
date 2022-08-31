@@ -13,4 +13,10 @@ class AppIcons {
   static const delete = 'assets/svg/icons/Delete.svg';
   static const tick = 'assets/svg/icons/Tick.svg';
   static const cross = 'assets/svg/icons/Cross.svg';
+  static const colorAdd = 'assets/svg/icons/Color Add.svg';
+  static const colorAdded = 'assets/svg/icons/Color Added.svg';
+  static const settings = 'assets/svg/icons/Settings.svg';
+  static const pluse = 'assets/svg/icons/Plus.svg';
+
+  static const dottedCircle = 'assets/svg/icons/circle_dotted.svg';
 }

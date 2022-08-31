@@ -1,9 +1,7 @@
-name: style_guide_ui
+name: style_guide_repository
 description: A new Flutter package project.
 version: 0.0.1
 homepage:
-
-publish_to: none
 
 environment:
   sdk: ">=2.17.6 <3.0.0"
@@ -12,11 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^1.1.4
-  google_fonts: ^3.0.1
-  pixel_perfect: ^1.1.1
-  style_guide_infra:
-    path: ../style_guide_infra
 
 dev_dependencies:
   flutter_test:
