@@ -1,11 +1,11 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unawaited_futures
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 
-import '../../app/cubit/all_style_guide_cubit.dart';
+import '../../app/presentation/cubit/all_style_guide_cubit.dart';
 import '../../cubit/selected_style_guide/selected_style_guide_cubit.dart';
 import '../../l10n/l10n.dart';
 import '../../routes.dart';
@@ -35,19 +35,23 @@ class _HomePageState extends State<HomePage> {
           await Future<void>.delayed(Durations.fastest);
           await pickPrimaryColor();
         },
-        onSecondaryTap: () {
+        onSecondaryTap: () async {
           Navigator.of(context).pop();
+          await Future<void>.delayed(Durations.fastest);
+          context.read<SelectedStyleGuideCubit>().createNewStyleGuide();
+          context.read<SelectedStyleGuideCubit>().createColorPallet(null);
+          Navigator.of(context).pushNamed(AppRouter.createColor);
         },
       ),
     );
   }
 
   Future<void> pickPrimaryColor() async {
-    final primaryColor = await pickColor(context);
-    if (primaryColor != null) {
+    final pickedColor = await pickColor(context);
+    if (pickedColor != null) {
       await Future<void>.delayed(Durations.fast);
       context.read<SelectedStyleGuideCubit>().createNewStyleGuide();
-      context.read<SelectedStyleGuideCubit>().createColorPallet(primaryColor);
+      context.read<SelectedStyleGuideCubit>().createColorPallet(pickedColor);
       showSuccessScreen();
     }
   }

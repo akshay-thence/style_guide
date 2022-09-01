@@ -1,5 +1,6 @@
-import 'package:thence_style_guide/app/app.dart';
 import 'package:thence_style_guide/bootstrap.dart';
+
+import 'app/presentation/app.dart';
 
 void main() {
   bootstrap(() => const App());
