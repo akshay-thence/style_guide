@@ -7,14 +7,14 @@ import 'package:style_guide_ui/style_guide_ui.dart';
 import 'package:thence_style_guide/routes.dart';
 
 class PickTypeFace extends StatelessWidget {
-  const PickTypeFace({super.key});
+  const PickTypeFace({super.key, required this.isPrimaryFont});
+
+  final bool isPrimaryFont;
 
   @override
   Widget build(BuildContext context) {
     final prefixIcon = SvgPicture.asset(AppIcons.search, color: AppColor.lightGrey2, width: 16, height: 16);
     final suffixIcon = Image.asset(AppImage.googleFontImage, scale: 2);
-
-    void _pickFonts() {}
 
     void _searchFonts() {
       Navigator.of(context).pushNamed(AppRouter.searchFonts);
@@ -29,7 +29,11 @@ class PickTypeFace extends StatelessWidget {
         children: [
           Row(),
           const SizedBox(height: 10),
-          const _CreateColorTitle(),
+          TypeHeaderWidget(
+            stepValue: 'Step 1 of 2',
+            title: isPrimaryFont ? 'Go Ahead 👍' : 'Impressive! 😎',
+            subTitle: isPrimaryFont ? "Let's pick a primary Typeface" : 'Choose a secondary font',
+          ),
           Hero(
             tag: 'search_font',
             child: Padding(
@@ -99,29 +103,6 @@ class PickTypeFace extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _CreateColorTitle extends StatelessWidget {
-  const _CreateColorTitle();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const StepCountWidget(value: 'Step 1 of 2'),
-        const SizedBox(height: 18),
-        Text(
-          'Go Ahead 👍',
-          style: AppTextStyle.h2,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          "Let's pick a primary Typeface",
-          style: AppTextStyle.subtitle.copyWith(color: AppColor.lightGrey2),
-        ),
-      ],
     );
   }
 }

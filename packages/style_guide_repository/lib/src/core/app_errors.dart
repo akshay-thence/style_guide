@@ -1,3 +1,5 @@
+// ignore_for_file: annotate_overrides, overridden_fields
+
 abstract class AppException {
   final String code;
   final String message;

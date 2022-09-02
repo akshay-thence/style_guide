@@ -1,7 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
+import 'package:style_guide_repository/style_guide_repository.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
+import 'package:thence_style_guide/routes.dart';
+
+import '../cubit/import_fonts_cubit.dart';
 
 class SearchFontPage extends StatefulWidget {
   const SearchFontPage({super.key});
@@ -12,6 +19,15 @@ class SearchFontPage extends StatefulWidget {
 
 class _SearchFontPageState extends State<SearchFontPage> {
   final _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ImportFontsCubit>().fetchAllGoogleFonts();
+    _searchController.addListener(() {
+      context.read<ImportFontsCubit>().searchGoogleFont(_searchController.text);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,49 +55,97 @@ class _SearchFontPageState extends State<SearchFontPage> {
                   autofocus: true,
                   hintText: 'Search ',
                   prefixIcon: prefixIcon,
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    child: Text(
-                      'Clear',
-                      style: AppTextStyle.caption1,
+                  suffixIcon: GestureDetector(
+                    onTap: _searchController.clear,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                      child: Text(
+                        'Clear',
+                        style: AppTextStyle.caption1,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 12),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 12),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: AppColor.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                    color: const Color(0xffa1a7b3).withOpacity(0.16),
-                  )
-                ],
-              ),
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemCount: 5,
-                separatorBuilder: (context, index) => const Divider(
-                  color: AppColor.lightGrey3,
-                  height: 32,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return Text(
-                    'Sacramento',
-                    style: AppTextStyle.body2Nor,
-                  );
-                },
-              ),
-            )
+            const _SearchResultWidget()
           ],
         ),
       ),
+    );
+  }
+}
+
+class _SearchResultWidget extends StatelessWidget {
+  const _SearchResultWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    // update bloc and navigate
+    Future<void> pickFont(GoogleFontModel selectedFont, {required bool isPrimary}) async {
+      context.read<ImportFontsCubit>().selectFont(selectedFont: selectedFont, isPrimary: isPrimary);
+      await Future<void>.delayed(Durations.fast);
+      // ignore: use_build_context_synchronously
+      await Navigator.of(context).pushNamed(AppRouter.selectedFont);
+    }
+
+    return BlocBuilder<ImportFontsCubit, ImportFontsState>(
+      builder: (context, state) {
+        if (state.searchResult.isEmpty) return const SizedBox.shrink();
+        return Flexible(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              color: AppColor.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                  color: const Color(0xffa1a7b3).withOpacity(0.16),
+                )
+              ],
+            ),
+            child: BlocBuilder<ImportFontsCubit, ImportFontsState>(
+              builder: (context, state) {
+                return ListView.separated(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(20),
+                  itemCount: state.searchResult.length,
+                  separatorBuilder: (context, index) => const Divider(
+                    color: AppColor.lightGrey3,
+                    height: 0,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () => pickFont(state.searchResult[index], isPrimary: true),
+                      child: SizedBox(
+                        height: 50,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              state.searchResult[index].family ?? '',
+                              style: AppTextStyle.body2Nor,
+                            ),
+                            if (state.primaryFont?.fontStyle == state.searchResult[index].family)
+                              SvgPicture.asset(
+                                AppIcons.tick,
+                                color: AppColor.primary,
+                              )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -25,7 +25,7 @@ class GoogleFontModel {
     subsets = json['subsets'].cast<String>();
     version = json['version'];
     lastModified = json['lastModified'];
-    files = json['files'];
+    files = Map<String, String>.from(json['files']);
     category = json['category'];
     kind = json['kind'];
   }

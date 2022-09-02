@@ -10,6 +10,7 @@ class AppRouter {
   static const String createColor = '/CreateColor';
   static const String pickTypeface = '/PickTypeFace';
   static const String searchFonts = '/searchFonts';
+  static const String selectedFont = '/selectedFont';
 
   Route onGenerateRoute(RouteSettings r) {
     // AppLogger.s(settings.name.toString(), tag: 'route_name');
@@ -27,7 +28,10 @@ class AppRouter {
         return _materialRoute(const SearchFontPage());
 
       case pickTypeface:
-        return _materialRoute(const PickTypeFace());
+        return _materialRoute(PickTypeFace(isPrimaryFont: (r.arguments as bool?) ?? true));
+
+      case selectedFont:
+        return _materialRoute(SelectedFontView(isPrimaryFont: (r.arguments as bool?) ?? true));
 
       default:
         return _materialRoute(const ColoredBox(color: Colors.red));

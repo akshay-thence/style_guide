@@ -21,4 +21,5 @@ class AppIcons {
   static const dottedCircle = 'assets/svg/icons/circle_dotted.svg';
   static const search = 'assets/svg/icons/Search16.svg';
   static const importFiles = 'assets/svg/icons/ImportFiles.svg';
+  static const tickCircle = 'assets/svg/icons/Tick circle.svg';
 }
