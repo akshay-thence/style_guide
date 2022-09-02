@@ -16,7 +16,9 @@ class AppIcons {
   static const colorAdd = 'assets/svg/icons/Color Add.svg';
   static const colorAdded = 'assets/svg/icons/Color Added.svg';
   static const settings = 'assets/svg/icons/Settings.svg';
-  static const pluse = 'assets/svg/icons/Plus.svg';
+  static const plus = 'assets/svg/icons/Plus.svg';
 
   static const dottedCircle = 'assets/svg/icons/circle_dotted.svg';
+  static const search = 'assets/svg/icons/Search16.svg';
+  static const importFiles = 'assets/svg/icons/ImportFiles.svg';
 }

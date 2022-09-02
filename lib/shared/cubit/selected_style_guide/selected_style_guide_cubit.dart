@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../app/model/style_guide_model.dart';
+import '../../model/style_guide_model.dart';
 
 part 'selected_style_guide_state.dart';
 
@@ -21,7 +21,7 @@ class SelectedStyleGuideCubit extends Cubit<SelectedStyleGuideState> {
       primary: [color ?? AppColor.primary],
       semantic: [AppColor.success, AppColor.error, AppColor.warn],
       neutral: [
-        AppColor.black80,
+        AppColor.black,
         AppColor.grey,
         AppColor.lightGrey1,
         AppColor.lightGrey2,
@@ -74,5 +74,23 @@ class SelectedStyleGuideCubit extends Cubit<SelectedStyleGuideState> {
     emit(state.copyWith(selectedStyleGuideModel: state.selectedStyleGuideModel!.copyWith(color: tempColor)));
   }
 
-  void deleteColor({required ColorType colorType, required int index}) {}
+  void deleteColor({required ColorType colorType, required int index}) {
+    final tempColor = state.selectedStyleGuideModel!.color!;
+
+    switch (colorType) {
+      case ColorType.primary:
+        tempColor.primary!.removeAt(index);
+        break;
+      case ColorType.secondary:
+        tempColor.secondary!.removeAt(index);
+        break;
+      case ColorType.semantic:
+        tempColor.semantic!.removeAt(index);
+        break;
+      case ColorType.neutral:
+        tempColor.neutral!.removeAt(index);
+        break;
+    }
+    emit(state.copyWith(selectedStyleGuideModel: state.selectedStyleGuideModel!.copyWith(color: tempColor)));
+  }
 }

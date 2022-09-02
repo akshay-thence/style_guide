@@ -24,9 +24,7 @@ class ColorInputWidget extends StatelessWidget {
 
     void selectColor() {
       FocusManager.instance.primaryFocus?.unfocus();
-      context.read<ColorPickerCubit>()
-        ..updateTextFieldFocus(isFocused: false)
-        ..resetColorToPreviousState();
+      context.read<ColorPickerCubit>().updateTextFieldFocus(isFocused: false);
     }
 
     void voidDiscardColor() {

@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 
-import '../../app/presentation/cubit/all_style_guide_cubit.dart';
-import '../../cubit/selected_style_guide/selected_style_guide_cubit.dart';
 import '../../l10n/l10n.dart';
 import '../../routes.dart';
+import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
 import '../../utils/bottom_sheets.dart';
+import '../cubit/all_style_guide_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +19,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void _pickTypeface() {
+    Navigator.of(context).pushNamed(AppRouter.pickTypeface);
+  }
+
   void createColor() {
     final l10n = context.l10n;
 
@@ -78,7 +82,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: createColor,
+        onPressed: _pickTypeface,
         child: const Icon(Icons.add),
       ),
       body: BlocBuilder<AllStyleGuideCubit, StyleGuideState>(

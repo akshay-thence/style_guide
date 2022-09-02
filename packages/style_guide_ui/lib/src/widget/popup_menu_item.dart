@@ -21,9 +21,7 @@ class CustomPopListTile<T> extends PopupMenuEntry<T> {
     this.mouseCursor,
     required this.icon,
     required this.text,
-  })  : assert(enabled != null),
-        assert(height != null),
-        super(key: key);
+  }) : super(key: key);
 
   final String icon;
   final String text;

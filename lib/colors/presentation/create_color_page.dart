@@ -47,17 +47,7 @@ class _CreateColorTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-          decoration: BoxDecoration(
-            color: AppColor.primary20,
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: Text(
-            'Step 2 of 2',
-            style: AppTextStyle.caption2,
-          ),
-        ),
+        const StepCountWidget(value: 'Step 1 of 2'),
         const SizedBox(height: 18),
         Text(
           'Superb! 👍',
@@ -66,7 +56,7 @@ class _CreateColorTitle extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           'Make Changes if You Want',
-          style: AppTextStyle.subtitle,
+          style: AppTextStyle.subtitle.copyWith(color: AppColor.lightGrey2),
         ),
         const SizedBox(height: 24),
       ],

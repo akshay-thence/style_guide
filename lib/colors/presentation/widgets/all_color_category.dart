@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:thence_style_guide/colors/presentation/widgets/color_category.dart';
 
-import '../../../cubit/selected_style_guide/selected_style_guide_cubit.dart';
+import '../../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
 
 class AllColorCategoryWidget extends StatelessWidget {
   const AllColorCategoryWidget({
@@ -31,7 +31,7 @@ class AllColorCategoryWidget extends StatelessWidget {
               subtitle: 'Brand color used for buttons and actions',
               colorType: ColorType.primary,
               initiallyExpanded: initiallyExpanded,
-              showExapndIcon: showExapndIcon,
+              showExpansionIcon: showExapndIcon,
             ),
             const SizedBox(height: 10),
             ColorCategoryWidget(
@@ -41,7 +41,7 @@ class AllColorCategoryWidget extends StatelessWidget {
               subtitle: 'Success, error, warning, information',
               colorType: ColorType.semantic,
               initiallyExpanded: initiallyExpanded,
-              showExapndIcon: showExapndIcon,
+              showExpansionIcon: showExapndIcon,
             ),
             const SizedBox(height: 10),
             ColorCategoryWidget(
@@ -51,7 +51,7 @@ class AllColorCategoryWidget extends StatelessWidget {
               subtitle: 'Text, container boarder, system icon',
               colorType: ColorType.neutral,
               initiallyExpanded: initiallyExpanded,
-              showExapndIcon: showExapndIcon,
+              showExpansionIcon: showExapndIcon,
             ),
             const SizedBox(height: 10),
             ColorCategoryWidget(
@@ -61,7 +61,7 @@ class AllColorCategoryWidget extends StatelessWidget {
               subtitle: 'For highlight, acents, tags and graphs',
               colorType: ColorType.secondary,
               initiallyExpanded: initiallyExpanded,
-              showExapndIcon: showExapndIcon,
+              showExpansionIcon: showExapndIcon,
             ),
           ],
         );

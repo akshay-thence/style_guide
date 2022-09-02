@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
-import 'package:thence_style_guide/cubit/selected_style_guide/selected_style_guide_cubit.dart';
 
+import '../../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
 import '../../../utils/bottom_sheets.dart';
 
 class ColorCategoryWidget extends StatelessWidget {
@@ -17,7 +17,7 @@ class ColorCategoryWidget extends StatelessWidget {
     required this.subtitle,
     required this.colorType,
     this.initiallyExpanded = false,
-    this.showExapndIcon = true,
+    this.showExpansionIcon = true,
     this.maxColorCount = 10,
   });
 
@@ -26,7 +26,7 @@ class ColorCategoryWidget extends StatelessWidget {
   final String subtitle;
   final ColorType colorType;
   final bool initiallyExpanded;
-  final bool showExapndIcon;
+  final bool showExpansionIcon;
   final int maxColorCount;
 
   @override
@@ -51,7 +51,8 @@ class ColorCategoryWidget extends StatelessWidget {
 
     return CustomExpansionTile(
       initiallyExpanded: initiallyExpanded,
-      controlAffinity: !showExapndIcon ? ListTileControlAffinity.leading : null,
+      disableTouch: !showExpansionIcon,
+      controlAffinity: !showExpansionIcon ? ListTileControlAffinity.leading : null,
       title: Text(
         title,
         style: AppTextStyle.title2,
@@ -118,13 +119,13 @@ class _AddColorWidget extends StatelessWidget {
                   height: 60,
                 ),
                 Center(
-                  child: SvgPicture.asset(AppIcons.pluse),
+                  child: SvgPicture.asset(AppIcons.plus),
                 )
               ],
             ),
           ),
           Text(
-            'add a colour',
+            'add a color',
             style: AppTextStyle.caption1,
           ),
         ],

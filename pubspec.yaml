@@ -7,7 +7,8 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  bloc: ^8.0.3
+  bloc: ^8.1.0
+  dotted_border: ^2.0.0+2
   dynamic_fonts: ^2.0.0
   flutter:
     sdk: flutter
@@ -18,10 +19,14 @@ dependencies:
   google_fonts: ^3.0.1
   intl: ^0.17.0
   pixel_perfect: ^1.1.1
+
   style_guide_infra:
     path: packages/style_guide_infra
+  style_guide_repository:
+    path: packages/style_guide_repository
   style_guide_ui:
     path: packages/style_guide_ui
+
   uuid: ^3.0.6
 
 dev_dependencies:
@@ -38,3 +43,4 @@ flutter:
   assets:
   - assets/svg/icons/
   - assets/screenshots/
+  - assets/images/

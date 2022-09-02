@@ -1,1 +1,1 @@
-export 'presentation/app.dart';
+export 'view/app.dart';

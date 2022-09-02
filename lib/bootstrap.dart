@@ -1,15 +1,10 @@
-// Copyright (c) 2022, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
 import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:style_guide_repository/style_guide_repository.dart';
+import 'package:thence_style_guide/app/app.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -25,18 +20,15 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+Future<void> bootstrap({required GoogleFontsRepository googleFontsRepository}) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
-  await runZonedGuarded(
-    () async {
-      await BlocOverrides.runZoned(
-        () async => runApp(await builder()),
-        blocObserver: AppBlocObserver(),
-      );
-    },
+  runZonedGuarded(
+    () => runApp(
+      App(googleFontsRepository: googleFontsRepository),
+    ),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
