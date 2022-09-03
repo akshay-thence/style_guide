@@ -1,4 +1,4 @@
-package co.thence.style.guide.thence_style_guide
+package co.thence.styleguide
 
 import io.flutter.embedding.android.FlutterActivity
 
