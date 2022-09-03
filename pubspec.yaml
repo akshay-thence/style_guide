@@ -9,6 +9,7 @@ environment:
 dependencies:
   bloc: ^8.1.0
   dotted_border: ^2.0.0+2
+  dynamic_cached_fonts: ^1.0.0
   dynamic_fonts: ^2.0.0
   flutter:
     sdk: flutter
