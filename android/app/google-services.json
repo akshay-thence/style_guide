@@ -40,6 +40,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238240217005:android:ae71f127ee1af26d2a1324",
+        "android_client_info": {
+          "package_name": "co.thence.styleguide.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "238240217005-cdlqoamoke6hqvlbqfd4kpu8obc9ua5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoq9dcEZuJYt5giuSCnt2rD2wZN_gsWsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238240217005-cdlqoamoke6hqvlbqfd4kpu8obc9ua5g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "238240217005-e99j5ubo5t1mp6se7es7ntmtjmgre6h2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "co.thence.style.guide.thence-style-guide"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
