@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:thence_style_guide/splash/view/splash_page.dart';
 
 import 'colors/colors.dart';
 import 'settings/settings.dart';
 import 'typeface/typeface.dart';
 
 class AppRouter {
+  static const String splash = '/splash';
   static const String settings = '/home';
   static const String colors = '/colors';
   static const String createColor = '/CreateColor';
@@ -15,6 +17,9 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings r) {
     // AppLogger.s(settings.name.toString(), tag: 'route_name');
     switch (r.name) {
+      case splash:
+        return _materialRoute(const SplashPage());
+
       case settings:
         return _materialRoute(const SettingPage());
 

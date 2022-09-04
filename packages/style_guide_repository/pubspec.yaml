@@ -8,9 +8,13 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  cloud_firestore: ^3.4.6
   dartz: ^0.10.1
+  firebase_auth: ^3.7.0
+  firebase_storage: ^10.3.7
   flutter:
     sdk: flutter
+  google_sign_in: ^5.4.1
   http: ^0.13.5
 
 dev_dependencies:

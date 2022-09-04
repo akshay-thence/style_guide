@@ -28,6 +28,7 @@ class AppTextStyle {
   static TextStyle title3 = GoogleFonts.sora(
     fontSize: 14,
     fontWeight: FontWeight.w600,
+    color: AppColor.lightGrey1,
   );
   static TextStyle body1 = GoogleFonts.sora(
     fontSize: 14,

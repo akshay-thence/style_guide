@@ -10,7 +10,7 @@ dependencies:
   bloc: ^8.1.0
   dotted_border: ^2.0.0+2
   dynamic_cached_fonts: ^1.0.0
-  dynamic_fonts: ^2.0.0
+  firebase_core: ^1.21.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1

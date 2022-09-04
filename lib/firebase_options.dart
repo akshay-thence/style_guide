@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAoq9dcEZuJYt5giuSCnt2rD2wZN_gsWsE',
-    appId: '1:238240217005:android:5b7dfc34323c38f22a1324',
+    appId: '1:238240217005:android:ae71f127ee1af26d2a1324',
     messagingSenderId: '238240217005',
     projectId: 'style-guide-755a8',
     storageBucket: 'style-guide-755a8.appspot.com',
@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDh1wfWyVcisOPhpf2ikFtLZmbEA9MkrGU',
-    appId: '1:238240217005:android:ae71f127ee1af26d2a1324',
+    appId: '1:238240217005:ios:97a3e8882ed9bd9b2a1324',
     messagingSenderId: '238240217005',
     projectId: 'style-guide-755a8',
     storageBucket: 'style-guide-755a8.appspot.com',
-    iosClientId: '238240217005-e99j5ubo5t1mp6se7es7ntmtjmgre6h2.apps.googleusercontent.com',
-    iosBundleId: 'co.thence.style.guide.thence-style-guide',
+    iosClientId: '238240217005-l9jso8khodvhop99tfe07o2dr9bbg7p2.apps.googleusercontent.com',
+    iosBundleId: 'co.thence.styleguide.dev',
   );
 }

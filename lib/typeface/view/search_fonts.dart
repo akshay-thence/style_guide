@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_repository/style_guide_repository.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
+
 import 'package:thence_style_guide/routes.dart';
 
 import '../cubit/import_fonts_cubit.dart';
@@ -46,31 +48,35 @@ class _SearchFontPageState extends State<SearchFontPage> {
         child: Column(
           children: [
             const SizedBox(height: 16),
-            Hero(
-              tag: 'search_font',
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CustomInputFields(
-                  controller: _searchController,
-                  autofocus: true,
-                  hintText: 'Search ',
-                  prefixIcon: prefixIcon,
-                  suffixIcon: GestureDetector(
-                    onTap: _searchController.clear,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                      child: Text(
-                        'Clear',
-                        style: AppTextStyle.caption1,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            _buildSearchBar(prefixIcon),
             const SizedBox(height: 12),
             const _SearchResultWidget()
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchBar(GestureDetector prefixIcon) {
+    return Hero(
+      tag: 'search_font',
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: CustomInputFields(
+          controller: _searchController,
+          autofocus: true,
+          hintText: 'Search ',
+          prefixIcon: prefixIcon,
+          suffixIcon: GestureDetector(
+            onTap: _searchController.clear,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+              child: Text(
+                'Clear',
+                style: AppTextStyle.caption1,
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -82,11 +88,10 @@ class _SearchResultWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // update bloc and navigate
+    // update [ImportFontsCubit] bloc and navigate to selected font preview screen
     Future<void> pickFont(GoogleFontModel selectedFont, {required bool isPrimary}) async {
       context.read<ImportFontsCubit>().selectFont(selectedFont: selectedFont, isPrimary: isPrimary);
       await Future<void>.delayed(Durations.fast);
-      // ignore: use_build_context_synchronously
       await Navigator.of(context).pushNamed(AppRouter.selectedFont);
     }
 
@@ -111,33 +116,18 @@ class _SearchResultWidget extends StatelessWidget {
               builder: (context, state) {
                 return ListView.separated(
                   shrinkWrap: true,
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   itemCount: state.searchResult.length,
                   separatorBuilder: (context, index) => const Divider(
                     color: AppColor.lightGrey3,
                     height: 0,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
+                    return _ListTile(
+                      key: UniqueKey(),
                       onTap: () => pickFont(state.searchResult[index], isPrimary: true),
-                      child: SizedBox(
-                        height: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              state.searchResult[index].family ?? '',
-                              style: AppTextStyle.body2Nor,
-                            ),
-                            if (state.primaryFont?.fontStyle == state.searchResult[index].family)
-                              SvgPicture.asset(
-                                AppIcons.tick,
-                                color: AppColor.primary,
-                              )
-                          ],
-                        ),
-                      ),
+                      title: state.searchResult[index].family ?? '',
+                      isSelected: state.primaryFont?.fontStyle == state.searchResult[index].family,
                     );
                   },
                 );
@@ -146,6 +136,44 @@ class _SearchResultWidget extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _ListTile extends StatelessWidget {
+  const _ListTile({
+    super.key,
+    required this.isSelected,
+    required this.title,
+    required this.onTap,
+  });
+
+  final bool isSelected;
+  final String title;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: onTap,
+      child: SizedBox(
+        height: 50,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: AppTextStyle.body2Nor,
+            ),
+            if (isSelected)
+              SvgPicture.asset(
+                AppIcons.tick,
+                color: AppColor.primary,
+              )
+          ],
+        ),
+      ),
     );
   }
 }
