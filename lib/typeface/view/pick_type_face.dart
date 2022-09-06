@@ -7,8 +7,8 @@ import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 import 'package:thence_style_guide/routes.dart';
 
+import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
 import '../../success/view/success_page.dart';
-import '../cubit/import_fonts_cubit.dart';
 
 /// This screen is used to create primary font and secondary fonts
 class PickTypeFace extends StatefulWidget {
@@ -59,7 +59,7 @@ class _PickTypeFaceState extends State<PickTypeFace> {
   // if user wants the default primary
   void _generateDefaultFont({bool isPrimaryFont = true}) {
     if (isPrimaryFont) {
-      context.read<ImportFontsCubit>().generateDefaultFont(isPrimaryFont: isPrimaryFont);
+      context.read<SelectedStyleGuideCubit>().generateDefaultFont(isPrimaryFont: isPrimaryFont);
       navigatorToSuccessScreen();
     }
   }

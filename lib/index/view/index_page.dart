@@ -47,6 +47,7 @@ class IndexPage extends StatelessWidget {
           ...List.generate(
             _settings.length,
             (index) => _ListTile(
+              index: index + 1,
               title: _settings[index].title,
               subTitle: _settings[index].subTitle,
               icon: _settings[index].icon,
@@ -65,12 +66,14 @@ class _ListTile extends StatelessWidget {
     required this.subTitle,
     required this.icon,
     required this.onTap,
+    required this.index,
   });
 
   final String title;
   final String subTitle;
   final String icon;
   final VoidCallback onTap;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -91,11 +94,9 @@ class _ListTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
-                  child: SvgPicture.asset(
-                    icon,
-                    height: 24,
-                    width: 24,
-                    color: AppColor.primary,
+                  child: Text(
+                    '0$index',
+                    style: AppTextStyle.title2.copyWith(color: AppColor.primary),
                   ),
                 ),
               ),

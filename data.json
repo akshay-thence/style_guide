@@ -1,5 +1,5 @@
 {
-    "id":"",
+    "id": "",
     "color": {
         "primary": [
             "#000000",
@@ -18,10 +18,23 @@
             "#ffffff"
         ]
     },
-    "typeface":  [
+    "typeface": {
+        "p": {
+            "fontFamily": "sadf",
+            "avl fml": {},
+            "dowurl": {},
+            "selected": []
+        },
+        "s": {
+            "fontFamily": "sadf",
+            "avl fml": {},
+            "dowurl": {},
+            "selected": []
+        },
+        "sdf": [
             {
-                "type":"typeface",
-                "family":"Helvetica",
+                "type": "typeface",
+                "family": "Helvetica",
                 "fontSze": 18,
                 "lineHeight": 150,
                 "letterSpacing": 0,
@@ -33,5 +46,6 @@
                 "lineHeight": 150,
                 "letterSpacing": 0
             }
-        ] 
+        ]
+    }
 }

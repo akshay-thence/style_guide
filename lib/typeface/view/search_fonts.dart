@@ -10,6 +10,7 @@ import 'package:style_guide_ui/style_guide_ui.dart';
 
 import 'package:thence_style_guide/routes.dart';
 
+import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
 import '../cubit/import_fonts_cubit.dart';
 
 class SearchFontPage extends StatefulWidget {
@@ -96,7 +97,7 @@ class _SearchResultWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     /// update [ImportFontsCubit] bloc and navigate to selected font preview screen
     Future<void> _pickFont(GoogleFontModel selectedFont) async {
-      context.read<ImportFontsCubit>().selectFont(selectedFont: selectedFont, isPrimary: isPrimaryFont);
+      context.read<SelectedStyleGuideCubit>().selectFont(selectedFont: selectedFont, isPrimary: isPrimaryFont);
       await Future<void>.delayed(Durations.fast);
       await Navigator.of(context).pushReplacementNamed(AppRouter.selectedFont, arguments: isPrimaryFont);
     }
@@ -118,22 +119,29 @@ class _SearchResultWidget extends StatelessWidget {
                 )
               ],
             ),
-            child: BlocBuilder<ImportFontsCubit, ImportFontsState>(
-              builder: (context, state) {
-                return ListView.separated(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  itemCount: state.searchResult.length,
-                  separatorBuilder: (context, index) => const Divider(
-                    color: AppColor.lightGrey3,
-                    height: 0,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
+            child: ListView.separated(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              itemCount: state.searchResult.length,
+              separatorBuilder: (context, index) => const Divider(
+                color: AppColor.lightGrey3,
+                height: 0,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return BlocBuilder<SelectedStyleGuideCubit, SelectedStyleGuideState>(
+                  builder: (context, selectedFontState) {
+                    final foo = isPrimaryFont
+                        ? selectedFontState.primaryFont?.fontStyle
+                        : selectedFontState.secondaryFont?.fontStyle;
+
                     return _ListTile(
                       key: UniqueKey(),
-                      onTap: () => _pickFont(state.searchResult[index]),
+                      onTap: () {
+                        AppHaptics.lightImpact();
+                        _pickFont(state.searchResult[index]);
+                      },
                       title: state.searchResult[index].family ?? '',
-                      isSelected: state.primaryFont?.fontStyle == state.searchResult[index].family,
+                      isSelected: foo == state.searchResult[index].family,
                     );
                   },
                 );

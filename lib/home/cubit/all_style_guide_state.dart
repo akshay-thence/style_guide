@@ -4,12 +4,12 @@ class StyleGuideState {
   StyleGuideState({this.styleGuides = const []});
 
   StyleGuideState copyWith({
-    List<StyleGuideModel>? styleGuides,
+    List<SColor>? styleGuides,
   }) {
     return StyleGuideState(
       styleGuides: styleGuides ?? this.styleGuides,
     );
   }
 
-  final List<StyleGuideModel> styleGuides;
+  final List<SColor> styleGuides;
 }

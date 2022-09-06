@@ -3,16 +3,24 @@ part of 'selected_style_guide_cubit.dart';
 
 class SelectedStyleGuideState {
   SelectedStyleGuideState({
-    this.selectedStyleGuideModel,
+    this.selectedColors,
+    this.primaryFont,
+    this.secondaryFont,
   });
 
   SelectedStyleGuideState copyWith({
-    StyleGuideModel? selectedStyleGuideModel,
+    SColor? selectedColors,
+    SelectedFontModel? primaryFont,
+    SelectedFontModel? secondaryFont,
   }) {
     return SelectedStyleGuideState(
-      selectedStyleGuideModel: selectedStyleGuideModel ?? this.selectedStyleGuideModel,
+      selectedColors: selectedColors ?? this.selectedColors,
+      primaryFont: primaryFont ?? this.primaryFont,
+      secondaryFont: secondaryFont ?? this.secondaryFont,
     );
   }
 
-  StyleGuideModel? selectedStyleGuideModel;
+  final SColor? selectedColors;
+  final SelectedFontModel? primaryFont;
+  final SelectedFontModel? secondaryFont;
 }

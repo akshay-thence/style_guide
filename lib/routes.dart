@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:style_guide_infra/style_guide_infra.dart';
+import 'package:style_guide_ui/style_guide_ui.dart';
 import 'package:thence_style_guide/splash/view/splash_page.dart';
 import 'package:thence_style_guide/success/success.dart';
 
@@ -58,7 +60,17 @@ class AppRouter {
         return _materialRoute(const TypeFaceSummaryPage());
 
       default:
-        return _materialRoute(const ColoredBox(color: Colors.red));
+        return _materialRoute(
+          CustomScaffold(
+            body: Center(
+              child: Text(
+                'TODO \n Please check other flows :)',
+                textAlign: TextAlign.center,
+                style: AppTextStyle.subtitle,
+              ),
+            ),
+          ),
+        );
     }
   }
 

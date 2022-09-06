@@ -12,7 +12,6 @@ import 'package:thence_style_guide/utils/bottom_sheets.dart';
 import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
 import '../../shared/model/selected_font.dart';
 import '../../utils/utils.dart';
-import '../cubit/import_fonts_cubit.dart';
 
 class TypeFaceSummaryPage extends StatefulWidget {
   const TypeFaceSummaryPage({super.key});
@@ -41,7 +40,6 @@ class _TypeFaceSummaryPageState extends State<TypeFaceSummaryPage> {
         onSecondaryTap: () async {
           Navigator.of(context).pop();
           await Future<void>.delayed(Durations.fastest);
-          context.read<SelectedStyleGuideCubit>().createNewStyleGuide();
           context.read<SelectedStyleGuideCubit>().createColorPallet(null);
           Navigator.of(context).pushNamed(AppRouter.createColor);
         },
@@ -53,7 +51,6 @@ class _TypeFaceSummaryPageState extends State<TypeFaceSummaryPage> {
     final pickedColor = await pickColor(context);
     if (pickedColor != null) {
       await Future<void>.delayed(Durations.fast);
-      context.read<SelectedStyleGuideCubit>().createNewStyleGuide();
       context.read<SelectedStyleGuideCubit>().createColorPallet(pickedColor);
       showSuccessScreen();
     }
@@ -97,13 +94,13 @@ class _TypeFaceSummaryPageState extends State<TypeFaceSummaryPage> {
                 style: AppTextStyle.title2,
               ),
               const SizedBox(height: 32),
-              BlocBuilder<ImportFontsCubit, ImportFontsState>(
+              BlocBuilder<SelectedStyleGuideCubit, SelectedStyleGuideState>(
                 builder: (context, state) {
                   return state.primaryFont != null ? _SummaryCard(fontModel: state.primaryFont!) : const SizedBox();
                 },
               ),
               const SizedBox(height: 48),
-              BlocBuilder<ImportFontsCubit, ImportFontsState>(
+              BlocBuilder<SelectedStyleGuideCubit, SelectedStyleGuideState>(
                 builder: (context, state) {
                   return state.secondaryFont != null ? _SummaryCard(fontModel: state.secondaryFont!) : const SizedBox();
                 },

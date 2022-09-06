@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 
+import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
 import '../../shared/model/selected_font.dart';
 import '../../utils/utils.dart';
 import '../cubit/import_fonts_cubit.dart';
@@ -25,7 +26,7 @@ class PickTypeScalePage extends StatelessWidget {
         color: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 32, 16, 24),
-          child: BlocBuilder<ImportFontsCubit, ImportFontsState>(
+          child: BlocBuilder<SelectedStyleGuideCubit, SelectedStyleGuideState>(
             builder: (context, state) {
               final selectedFont = isPrimaryFont ? state.primaryFont! : state.secondaryFont!;
               return Column(
@@ -60,7 +61,7 @@ class PickTypeScalePage extends StatelessWidget {
     void _selectFontWeights(BuildContext context, int index) {
       AppHaptics.lightImpact();
       context
-          .read<ImportFontsCubit>()
+          .read<SelectedStyleGuideCubit>()
           .selectFontWeight(isPrimaryFont: isPrimaryFont, fontWeight: selectedFont.variants[index]);
     }
 

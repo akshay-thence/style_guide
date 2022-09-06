@@ -20,7 +20,7 @@ class AllColorCategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SelectedStyleGuideCubit, SelectedStyleGuideState>(
       builder: (context, state) {
-        final color = state.selectedStyleGuideModel!.color!;
+        final color = state.selectedColors!;
         return Column(
           children: [
             const SizedBox(height: 16),

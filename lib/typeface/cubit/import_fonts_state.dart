@@ -7,8 +7,6 @@ class ImportFontsState {
     this.searchResult = const [],
     this.selectedFont = const [],
     this.status = APIStatus.initial,
-    this.primaryFont,
-    this.secondaryFont,
   });
 
   ImportFontsState copyWith({
@@ -16,8 +14,6 @@ class ImportFontsState {
     List<GoogleFontModel>? searchResult,
     List<GoogleFontModel>? selectedFont,
     APIStatus? status,
-    SelectedFontModel? primaryFont,
-    SelectedFontModel? secondaryFont,
     int? selectedFontIndex,
   }) {
     return ImportFontsState(
@@ -25,8 +21,6 @@ class ImportFontsState {
       searchResult: searchResult ?? this.searchResult,
       selectedFont: selectedFont ?? this.selectedFont,
       status: status ?? this.status,
-      primaryFont: primaryFont ?? this.primaryFont,
-      secondaryFont: secondaryFont ?? this.secondaryFont,
     );
   }
 
@@ -34,6 +28,4 @@ class ImportFontsState {
   final List<GoogleFontModel> searchResult;
   final List<GoogleFontModel> selectedFont;
   final APIStatus status;
-  final SelectedFontModel? primaryFont;
-  final SelectedFontModel? secondaryFont;
 }

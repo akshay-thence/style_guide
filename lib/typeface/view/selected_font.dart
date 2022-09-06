@@ -10,6 +10,7 @@ import 'package:thence_style_guide/routes.dart';
 import 'package:thence_style_guide/success/view/success_page.dart';
 import 'package:thence_style_guide/typeface/view/pick_type_scale.dart';
 
+import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
 import '../../utils/bottom_sheets.dart';
 import '../cubit/import_fonts_cubit.dart';
 
@@ -31,12 +32,13 @@ class _SelectedFontViewState extends State<SelectedFontView> {
 
   /// Load custom fonts from the urls
   void _loadCustomFonts() {
-    final foo = context.read<ImportFontsCubit>().state.primaryFont!;
-    final urls = foo.files.values.map((e) => e).toList();
+    final state = context.read<SelectedStyleGuideCubit>().state;
+    final fonts = widget.isPrimaryFont ? state.primaryFont! : state.secondaryFont;
+    final urls = fonts!.files.values.map((e) => e).toList();
     if (urls.length > 1) {
-      DynamicCachedFonts.family(urls: urls, fontFamily: foo.fontStyle).load();
+      DynamicCachedFonts.family(urls: urls, fontFamily: fonts.fontStyle).load();
     } else {
-      DynamicCachedFonts(url: urls.first, fontFamily: foo.fontStyle).load();
+      DynamicCachedFonts(url: urls.first, fontFamily: fonts.fontStyle).load();
     }
   }
 
@@ -112,7 +114,7 @@ class _SelectedTypeface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ImportFontsCubit, ImportFontsState>(
+    return BlocBuilder<SelectedStyleGuideCubit, SelectedStyleGuideState>(
       builder: (context, state) {
         var count = 0;
         var fontName = '';

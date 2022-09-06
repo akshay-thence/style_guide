@@ -5,12 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_repository/style_guide_repository.dart';
-import 'package:thence_style_guide/splash/view/splash_page.dart';
 import 'package:thence_style_guide/typeface/cubit/import_fonts_cubit.dart';
 
 import '../../home/home.dart';
 import '../../l10n/l10n.dart';
-import '../../login/view/login_page.dart';
 import '../../routes.dart';
 import '../../shared/cubit/auth/auth_bloc.dart';
 import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';

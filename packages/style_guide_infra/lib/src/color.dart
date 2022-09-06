@@ -44,7 +44,7 @@ class AppColor {
   static const background = Color(0xffE5E5E5);
 }
 
-Color converHexToColor(String color) {
+Color convertHexToColor(String color) {
   var hexColor = color.replaceAll('#', '');
   late Color mColor;
 
