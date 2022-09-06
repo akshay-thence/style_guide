@@ -9,3 +9,4 @@ export 'src/images.dart';
 export 'src/logger.dart';
 export 'src/app_haptics.dart';
 export 'src/box_decoration.dart';
+export 'src/utils/utils.dart';

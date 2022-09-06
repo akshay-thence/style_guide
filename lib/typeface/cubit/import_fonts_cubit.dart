@@ -3,9 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_repository/style_guide_repository.dart';
 
-import '../../shared/model/selected_font.dart';
-import '../../utils/utils.dart';
-
 part 'import_fonts_state.dart';
 
 class ImportFontsCubit extends Cubit<ImportFontsState> {

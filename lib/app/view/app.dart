@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_repository/style_guide_repository.dart';
+
 import 'package:thence_style_guide/typeface/cubit/import_fonts_cubit.dart';
 
 import '../../home/home.dart';
@@ -17,9 +18,11 @@ class App extends StatelessWidget {
   const App({
     super.key,
     required this.googleFontsRepository,
+    required this.styleGuideRepository,
   });
 
   final GoogleFontsRepository googleFontsRepository;
+  final StyleGuideRepository styleGuideRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -33,24 +36,30 @@ class App extends StatelessWidget {
 
     return RepositoryProvider.value(
       value: googleFontsRepository,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<SelectedStyleGuideCubit>(
-            create: (BuildContext context) => SelectedStyleGuideCubit(),
-          ),
-          BlocProvider<AllStyleGuideCubit>(
-            create: (BuildContext context) => AllStyleGuideCubit(
-              selectedStyleGuideCubit: context.read<SelectedStyleGuideCubit>(),
+      child: RepositoryProvider(
+        create: (context) => styleGuideRepository,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<SelectedStyleGuideCubit>(
+              create: (BuildContext context) => SelectedStyleGuideCubit(
+                styleGuideRepository: context.read<StyleGuideRepository>(),
+              ),
             ),
-          ),
-          BlocProvider(
-            create: (context) => AuthBloc(),
-          ),
-          BlocProvider(
-            create: (context) => ImportFontsCubit(context.read<GoogleFontsRepository>()),
-          )
-        ],
-        child: const AppView(),
+            BlocProvider<AllStyleGuideCubit>(
+              create: (BuildContext context) => AllStyleGuideCubit(
+                selectedStyleGuideCubit: context.read<SelectedStyleGuideCubit>(),
+                styleGuideRepository: context.read<StyleGuideRepository>(),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => AuthBloc(),
+            ),
+            BlocProvider(
+              create: (context) => ImportFontsCubit(context.read<GoogleFontsRepository>()),
+            )
+          ],
+          child: const AppView(),
+        ),
       ),
     );
   }

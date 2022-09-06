@@ -12,5 +12,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   final GoogleFontsRepository googleFontsRepository = GoogleFontsLocalRepository();
-  await bootstrap(googleFontsRepository: googleFontsRepository);
+  final StyleGuideRepository styleGuideRepository = StyleGuideRepositoryImpl();
+  await bootstrap(
+    googleFontsRepository: googleFontsRepository,
+    styleGuideRepository: styleGuideRepository,
+  );
 }

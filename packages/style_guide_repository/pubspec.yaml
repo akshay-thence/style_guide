@@ -16,6 +16,8 @@ dependencies:
     sdk: flutter
   google_sign_in: ^5.4.1
   http: ^0.13.5
+  style_guide_infra:
+    path: ../style_guide_infra
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
@@ -5,18 +9,30 @@ import 'package:style_guide_repository/style_guide_repository.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../utils/utils.dart';
-import '../../model/selected_font.dart';
-import '../../model/style_guide_model.dart';
 
 part 'selected_style_guide_state.dart';
 
 class SelectedStyleGuideCubit extends Cubit<SelectedStyleGuideState> {
-  SelectedStyleGuideCubit() : super(SelectedStyleGuideState());
+  SelectedStyleGuideCubit({
+    required this.styleGuideRepository,
+  }) : super(SelectedStyleGuideState());
 
+  final StyleGuideRepository styleGuideRepository;
   final uuid = const Uuid();
 
+  void selectStyleGuide(StyleGuideModel data) {
+    emit(
+      SelectedStyleGuideState(
+        primaryFont: data.primaryFont,
+        secondaryFont: data.secondaryFont,
+        selectedColors: data.selectedColors,
+      ),
+    );
+  }
+
   void createNewStyleGuide() {
-    print(state.toString());
+    log(jsonEncode(state.toMap().toString()));
+    styleGuideRepository.createStyleGuide(state.toMap());
   }
 
   /// generate a default color pallet with primary color

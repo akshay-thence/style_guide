@@ -20,14 +20,20 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap({required GoogleFontsRepository googleFontsRepository}) async {
+Future<void> bootstrap({
+  required GoogleFontsRepository googleFontsRepository,
+  required StyleGuideRepository styleGuideRepository,
+}) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
   runZonedGuarded(
     () => runApp(
-      App(googleFontsRepository: googleFontsRepository),
+      App(
+        googleFontsRepository: googleFontsRepository,
+        styleGuideRepository: styleGuideRepository,
+      ),
     ),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );

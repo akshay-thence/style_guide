@@ -23,4 +23,14 @@ class SelectedStyleGuideState {
   final SColor? selectedColors;
   final SelectedFontModel? primaryFont;
   final SelectedFontModel? secondaryFont;
+
+  Map<String, dynamic> toMap() {
+    final data = <String, dynamic>{};
+
+    data['primaryFont'] = primaryFont?.toMap();
+    data['secondaryFont'] = secondaryFont?.toMap();
+    data['colors'] = selectedColors?.toMap();
+
+    return data;
+  }
 }

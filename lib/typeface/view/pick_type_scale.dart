@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
+import 'package:style_guide_repository/style_guide_repository.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 
 import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
-import '../../shared/model/selected_font.dart';
 import '../../utils/utils.dart';
-import '../cubit/import_fonts_cubit.dart';
 
 class PickTypeScalePage extends StatelessWidget {
   const PickTypeScalePage({super.key, required this.isPrimaryFont});

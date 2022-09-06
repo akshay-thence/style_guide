@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
-import 'package:thence_style_guide/routes.dart';
 
+import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
 import 'widgets/all_color_category.dart';
 
 class CreateColorPage extends StatelessWidget {
@@ -30,8 +30,8 @@ class CreateColorPage extends StatelessWidget {
               child: AppButton(
                 title: 'Create Style Guide',
                 onTap: () {
-                  Navigator.of(context).pushNamed(AppRouter.indexPage);
-                  // context.read<SelectedStyleGuideCubit>().createNewStyleGuide();
+                  // Navigator.of(context).pushNamed(AppRouter.indexPage);
+                  context.read<SelectedStyleGuideCubit>().createNewStyleGuide();
                 },
               ),
             )

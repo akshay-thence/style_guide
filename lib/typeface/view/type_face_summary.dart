@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
+import 'package:style_guide_repository/style_guide_repository.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 import 'package:thence_style_guide/l10n/l10n.dart';
 import 'package:thence_style_guide/routes.dart';
 import 'package:thence_style_guide/utils/bottom_sheets.dart';
 
 import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
-import '../../shared/model/selected_font.dart';
-import '../../utils/utils.dart';
 
 class TypeFaceSummaryPage extends StatefulWidget {
   const TypeFaceSummaryPage({super.key});
