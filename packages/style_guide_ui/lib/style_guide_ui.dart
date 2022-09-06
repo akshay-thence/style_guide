@@ -12,3 +12,4 @@ export 'src/dialog_box/dialog_box_function.dart';
 export 'src/widget/step_count_chip.dart';
 export 'src/widget/input_field.dart';
 export 'src/widget/type_header_with_step.dart';
+export 'src/widget/check_box.dart';

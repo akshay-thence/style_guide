@@ -1,28 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 import 'package:thence_style_guide/routes.dart';
 
 import '../../l10n/l10n.dart';
 
-class SettingPage extends StatelessWidget {
-  const SettingPage({super.key});
+class IndexPage extends StatelessWidget {
+  const IndexPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
     return CustomScaffold(
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(
+        trailingIcon: AppIcons.settings,
+        onTrailingIconTap: () {
+          Navigator.of(context).pushNamed(AppRouter.settings);
+        },
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-            child: Text(
-              l10n.settings,
-              style: AppTextStyle.h1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Style Guide',
+                  style: AppTextStyle.h1,
+                ),
+                Text(
+                  'Index',
+                  style: GoogleFonts.sora(
+                    fontSize: 36,
+                    color: AppColor.lightGrey1,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
             ),
           ),
           ...List.generate(
@@ -103,29 +122,41 @@ class _ListTile extends StatelessWidget {
   }
 }
 
-final _settings = <SettingEntity>[
+var _settings = <SettingEntity>[
   SettingEntity(
     icon: AppIcons.typeFace,
-    title: 'Typeface',
-    subTitle: 'Primary, display typeface',
+    title: 'Font Characters',
+    subTitle: 'Bold, Semibold & Regular',
     routeName: '',
   ),
   SettingEntity(
     icon: AppIcons.typeScale,
-    title: 'Typescale',
-    subTitle: 'Weight, Size, character spacing...',
+    title: 'Components & Font Pairing',
+    subTitle: 'Common Possible Text Pairs',
     routeName: '',
   ),
   SettingEntity(
     icon: AppIcons.colorsSwatch,
-    title: 'Colors',
-    subTitle: 'Veiw pallate primary, secondary..',
+    title: 'Button Sizes & Styles',
+    subTitle: 'Button combination and color',
     routeName: AppRouter.colors,
   ),
   SettingEntity(
     icon: AppIcons.cornerRadius,
-    title: 'Corner radius',
-    subTitle: 'Buttons, chips, input fields...',
+    title: 'Icon Sizes',
+    subTitle: 'Icons frames for UI',
+    routeName: '',
+  ),
+  SettingEntity(
+    icon: AppIcons.cornerRadius,
+    title: 'Space Scale',
+    subTitle: 'Setting up spacing rules',
+    routeName: '',
+  ),
+  SettingEntity(
+    icon: AppIcons.cornerRadius,
+    title: 'Color Accessibility',
+    subTitle: 'Checking contrast color combination',
     routeName: '',
   ),
 ];

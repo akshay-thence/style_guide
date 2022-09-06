@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:thence_style_guide/splash/view/splash_page.dart';
+import 'package:thence_style_guide/success/success.dart';
 
 import 'colors/colors.dart';
+import 'index/view/index_page.dart';
 import 'settings/settings.dart';
 import 'typeface/typeface.dart';
+import 'typeface/view/type_face_summary.dart';
 
 class AppRouter {
   static const String splash = '/splash';
@@ -13,6 +16,10 @@ class AppRouter {
   static const String pickTypeface = '/PickTypeFace';
   static const String searchFonts = '/searchFonts';
   static const String selectedFont = '/selectedFont';
+  static const String selectTypeScale = '/selectTypeScale';
+  static const String successPage = '/success';
+  static const String typeFaceSummary = '/typeFaceSummary';
+  static const String indexPage = '/indexPage';
 
   Route onGenerateRoute(RouteSettings r) {
     // AppLogger.s(settings.name.toString(), tag: 'route_name');
@@ -30,13 +37,25 @@ class AppRouter {
         return _materialRoute(const CreateColorPage());
 
       case searchFonts:
-        return _materialRoute(const SearchFontPage());
+        return _materialRoute(SearchFontPage(isPrimaryFont: (r.arguments as bool?) ?? true));
 
       case pickTypeface:
         return _materialRoute(PickTypeFace(isPrimaryFont: (r.arguments as bool?) ?? true));
 
       case selectedFont:
         return _materialRoute(SelectedFontView(isPrimaryFont: (r.arguments as bool?) ?? true));
+
+      case selectTypeScale:
+        return _materialRoute(PickTypeScalePage(isPrimaryFont: (r.arguments as bool?) ?? true));
+
+      case successPage:
+        return _materialRoute(SuccessPage(params: r.arguments as SuccessScreenParams));
+
+      case indexPage:
+        return _materialRoute(const IndexPage());
+
+      case typeFaceSummary:
+        return _materialRoute(const TypeFaceSummaryPage());
 
       default:
         return _materialRoute(const ColoredBox(color: Colors.red));

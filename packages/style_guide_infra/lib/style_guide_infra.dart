@@ -7,3 +7,5 @@ export 'src/duration.dart';
 export 'src/enums.dart';
 export 'src/images.dart';
 export 'src/logger.dart';
+export 'src/app_haptics.dart';
+export 'src/box_decoration.dart';

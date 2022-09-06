@@ -6,6 +6,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 
+import 'package:thence_style_guide/routes.dart';
+import 'package:thence_style_guide/success/view/success_page.dart';
+import 'package:thence_style_guide/typeface/view/pick_type_scale.dart';
+
+import '../../utils/bottom_sheets.dart';
 import '../cubit/import_fonts_cubit.dart';
 
 class SelectedFontView extends StatefulWidget {
@@ -18,7 +23,14 @@ class SelectedFontView extends StatefulWidget {
 }
 
 class _SelectedFontViewState extends State<SelectedFontView> {
-  void _initCustomFonts() {
+  @override
+  void initState() {
+    _loadCustomFonts();
+    super.initState();
+  }
+
+  /// Load custom fonts from the urls
+  void _loadCustomFonts() {
     final foo = context.read<ImportFontsCubit>().state.primaryFont!;
     final urls = foo.files.values.map((e) => e).toList();
     if (urls.length > 1) {
@@ -28,10 +40,42 @@ class _SelectedFontViewState extends State<SelectedFontView> {
     }
   }
 
-  @override
-  void initState() {
-    _initCustomFonts();
-    super.initState();
+  Future<void> pickTypeScale() async {
+    final fontPicked = await customBottomSheet<bool?>(
+      context,
+      child: PickTypeScalePage(isPrimaryFont: widget.isPrimaryFont),
+    );
+
+    if (fontPicked == true) {
+      navigatorToSuccessScreen();
+    }
+  }
+
+  // success screen
+  void navigatorToSuccessScreen() {
+    final arguments = SuccessScreenParams(
+      title: 'Awesome!',
+      subTitle: widget.isPrimaryFont ? 'Primary Fonts Selected' : 'Secondary Fonts Selected',
+      onDone: successPageCallback,
+    );
+    Navigator.of(context).pushNamed(
+      AppRouter.successPage,
+      arguments: arguments,
+    );
+  }
+
+  // pick secondary font
+  void successPageCallback() {
+    if (widget.isPrimaryFont) {
+      Navigator.of(context).pushReplacementNamed(
+        AppRouter.pickTypeface,
+        arguments: false,
+      );
+    } else {
+      Navigator.of(context).pushReplacementNamed(
+        AppRouter.typeFaceSummary,
+      );
+    }
   }
 
   @override
@@ -48,11 +92,11 @@ class _SelectedFontViewState extends State<SelectedFontView> {
               subTitle: "You've picked a typeface",
             ),
             const SizedBox(height: 48),
-            const _SelectedTypeface(),
+            _SelectedTypeface(isPrimaryFont: widget.isPrimaryFont),
             const Spacer(),
             AppButton(
               title: 'Select Font Weights',
-              onTap: () {},
+              onTap: pickTypeScale,
             ),
           ],
         ),
@@ -62,25 +106,26 @@ class _SelectedFontViewState extends State<SelectedFontView> {
 }
 
 class _SelectedTypeface extends StatelessWidget {
-  const _SelectedTypeface();
+  const _SelectedTypeface({required this.isPrimaryFont});
+
+  final bool isPrimaryFont;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ImportFontsCubit, ImportFontsState>(
       builder: (context, state) {
+        var count = 0;
+        var fontName = '';
+        if (isPrimaryFont) {
+          fontName = state.primaryFont!.fontStyle.toUpperCase();
+          count = state.primaryFont!.variants.length;
+        } else {
+          fontName = state.secondaryFont!.fontStyle.toUpperCase();
+          count = state.secondaryFont!.variants.length;
+        }
         return Container(
           padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: AppColor.white,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xffA1A7B3).withOpacity(0.16),
-                blurRadius: 16,
-                offset: const Offset(0, 2),
-              )
-            ],
-          ),
+          decoration: kCardDecoration,
           child: Column(
             children: [
               ConstrainedBox(
@@ -93,12 +138,12 @@ class _SelectedTypeface extends StatelessWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
-                        state.primaryFont!.fontStyle.toUpperCase(),
+                        fontName.toUpperCase(),
                         style: AppTextStyle.title3,
                       ),
                     ),
                     Text(
-                      '${state.primaryFont!.variants.length} Styles Found',
+                      '$count Styles Found',
                       style: AppTextStyle.caption1.copyWith(color: AppColor.grey),
                     )
                   ],
@@ -116,7 +161,7 @@ class _SelectedTypeface extends StatelessWidget {
                     Text(
                       'Almost before we knew it, we had left the ground',
                       style: TextStyle(
-                        fontFamily: context.read<ImportFontsCubit>().state.primaryFont!.fontStyle,
+                        fontFamily: fontName,
                         fontWeight: FontWeight.w600,
                         fontSize: 24,
                         height: 1.5,

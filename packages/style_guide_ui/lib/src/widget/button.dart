@@ -53,7 +53,8 @@ class AppButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         splashColor: Colors.white.withOpacity(0.1),
         highlightColor: Colors.white.withOpacity(0.1),
-        child: Container(
+        child: AnimatedContainer(
+          duration: Durations.fastest,
           padding: padding,
           height: height,
           decoration: BoxDecoration(

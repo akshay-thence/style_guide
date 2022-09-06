@@ -22,14 +22,14 @@ class CreateColorPage extends StatelessWidget {
             const _CreateColorTitle(),
             const AllColorCategoryWidget(
               initiallyExpanded: true,
-              showExapndIcon: false,
+              showExpandedIcon: false,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
               child: AppButton(
                 title: 'Create Style Guide',
                 onTap: () {
-                  Navigator.of(context).pushNamed(AppRouter.settings);
+                  Navigator.of(context).pushNamed(AppRouter.indexPage);
                 },
               ),
             )

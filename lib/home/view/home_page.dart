@@ -23,61 +23,6 @@ class _HomePageState extends State<HomePage> {
     Navigator.of(context).pushNamed(AppRouter.pickTypeface);
   }
 
-  void createColor() {
-    final l10n = context.l10n;
-
-    showAppDialogBox<void>(
-      context,
-      AppDialogBox(
-        icon: AppIcons.colorAdd,
-        title: l10n.dialogBoxAddPrimaryColorTitle,
-        description: l10n.dialogBoxAddPrimaryColorDesc,
-        primaryButtonText: l10n.add,
-        secondaryButtonText: l10n.skip,
-        onPrimaryTap: () async {
-          Navigator.of(context).pop();
-          await Future<void>.delayed(Durations.fastest);
-          await pickPrimaryColor();
-        },
-        onSecondaryTap: () async {
-          Navigator.of(context).pop();
-          await Future<void>.delayed(Durations.fastest);
-          context.read<SelectedStyleGuideCubit>().createNewStyleGuide();
-          context.read<SelectedStyleGuideCubit>().createColorPallet(null);
-          Navigator.of(context).pushNamed(AppRouter.createColor);
-        },
-      ),
-    );
-  }
-
-  Future<void> pickPrimaryColor() async {
-    final pickedColor = await pickColor(context);
-    if (pickedColor != null) {
-      await Future<void>.delayed(Durations.fast);
-      context.read<SelectedStyleGuideCubit>().createNewStyleGuide();
-      context.read<SelectedStyleGuideCubit>().createColorPallet(pickedColor);
-      showSuccessScreen();
-    }
-  }
-
-  void showSuccessScreen() {
-    final l10n = context.l10n;
-
-    showAppDialogBox<void>(
-      context,
-      AppDialogBox(
-        icon: AppIcons.colorAdded,
-        title: l10n.dialogBoxColorAddedTitle,
-        description: l10n.dialogBoxColorAddedDesc,
-        primaryButtonText: l10n.done,
-        onPrimaryTap: () {
-          Navigator.of(context).pop();
-          Navigator.of(context).pushNamed(AppRouter.createColor);
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

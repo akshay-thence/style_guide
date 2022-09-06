@@ -22,4 +22,5 @@ class AppIcons {
   static const search = 'assets/svg/icons/Search16.svg';
   static const importFiles = 'assets/svg/icons/ImportFiles.svg';
   static const tickCircle = 'assets/svg/icons/Tick circle.svg';
+  static const secondaryFont = 'assets/svg/icons/Secondary font.svg';
 }

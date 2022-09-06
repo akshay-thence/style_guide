@@ -10,11 +10,11 @@ class AllColorCategoryWidget extends StatelessWidget {
   const AllColorCategoryWidget({
     super.key,
     this.initiallyExpanded = false,
-    this.showExapndIcon = true,
+    this.showExpandedIcon = true,
   });
 
   final bool initiallyExpanded;
-  final bool showExapndIcon;
+  final bool showExpandedIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class AllColorCategoryWidget extends StatelessWidget {
               subtitle: 'Brand color used for buttons and actions',
               colorType: ColorType.primary,
               initiallyExpanded: initiallyExpanded,
-              showExpansionIcon: showExapndIcon,
+              showExpansionIcon: showExpandedIcon,
             ),
             const SizedBox(height: 10),
             ColorCategoryWidget(
@@ -41,7 +41,7 @@ class AllColorCategoryWidget extends StatelessWidget {
               subtitle: 'Success, error, warning, information',
               colorType: ColorType.semantic,
               initiallyExpanded: initiallyExpanded,
-              showExpansionIcon: showExapndIcon,
+              showExpansionIcon: showExpandedIcon,
             ),
             const SizedBox(height: 10),
             ColorCategoryWidget(
@@ -51,7 +51,7 @@ class AllColorCategoryWidget extends StatelessWidget {
               subtitle: 'Text, container boarder, system icon',
               colorType: ColorType.neutral,
               initiallyExpanded: initiallyExpanded,
-              showExpansionIcon: showExapndIcon,
+              showExpansionIcon: showExpandedIcon,
             ),
             const SizedBox(height: 10),
             ColorCategoryWidget(
@@ -61,7 +61,7 @@ class AllColorCategoryWidget extends StatelessWidget {
               subtitle: 'For highlight, acents, tags and graphs',
               colorType: ColorType.secondary,
               initiallyExpanded: initiallyExpanded,
-              showExpansionIcon: showExapndIcon,
+              showExpansionIcon: showExpandedIcon,
             ),
           ],
         );

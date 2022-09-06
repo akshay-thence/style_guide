@@ -13,7 +13,12 @@ import 'package:thence_style_guide/routes.dart';
 import '../cubit/import_fonts_cubit.dart';
 
 class SearchFontPage extends StatefulWidget {
-  const SearchFontPage({super.key});
+  const SearchFontPage({
+    super.key,
+    required this.isPrimaryFont,
+  });
+
+  final bool isPrimaryFont;
 
   @override
   State<SearchFontPage> createState() => _SearchFontPageState();
@@ -50,7 +55,7 @@ class _SearchFontPageState extends State<SearchFontPage> {
             const SizedBox(height: 16),
             _buildSearchBar(prefixIcon),
             const SizedBox(height: 12),
-            const _SearchResultWidget()
+            _SearchResultWidget(isPrimaryFont: widget.isPrimaryFont)
           ],
         ),
       ),
@@ -84,15 +89,16 @@ class _SearchFontPageState extends State<SearchFontPage> {
 }
 
 class _SearchResultWidget extends StatelessWidget {
-  const _SearchResultWidget();
+  const _SearchResultWidget({required this.isPrimaryFont});
+  final bool isPrimaryFont;
 
   @override
   Widget build(BuildContext context) {
-    // update [ImportFontsCubit] bloc and navigate to selected font preview screen
-    Future<void> pickFont(GoogleFontModel selectedFont, {required bool isPrimary}) async {
-      context.read<ImportFontsCubit>().selectFont(selectedFont: selectedFont, isPrimary: isPrimary);
+    /// update [ImportFontsCubit] bloc and navigate to selected font preview screen
+    Future<void> _pickFont(GoogleFontModel selectedFont) async {
+      context.read<ImportFontsCubit>().selectFont(selectedFont: selectedFont, isPrimary: isPrimaryFont);
       await Future<void>.delayed(Durations.fast);
-      await Navigator.of(context).pushNamed(AppRouter.selectedFont);
+      await Navigator.of(context).pushReplacementNamed(AppRouter.selectedFont, arguments: isPrimaryFont);
     }
 
     return BlocBuilder<ImportFontsCubit, ImportFontsState>(
@@ -125,7 +131,7 @@ class _SearchResultWidget extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return _ListTile(
                       key: UniqueKey(),
-                      onTap: () => pickFont(state.searchResult[index], isPrimary: true),
+                      onTap: () => _pickFont(state.searchResult[index]),
                       title: state.searchResult[index].family ?? '',
                       isSelected: state.primaryFont?.fontStyle == state.searchResult[index].family,
                     );
