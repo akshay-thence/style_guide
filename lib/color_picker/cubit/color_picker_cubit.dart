@@ -8,11 +8,15 @@ class ColorPickerCubit extends Cubit<ColorPickerState> {
 
   void changeColor(Color color) {
     if (color == state.selectedColor) return;
-    emit(state.copyWith(selected: color));
+    emit(state.copyWith(selectedColor: color, color: state.color ?? color));
   }
 
   void updateTextFieldFocus({required bool isFocused}) {
     if (isFocused == state.textFieldFocused) return;
     emit(state.copyWith(textFieldFocused: isFocused));
+  }
+
+  void resetColorToPreviousState() {
+    emit(state.copyWith(selectedColor: state.color));
   }
 }

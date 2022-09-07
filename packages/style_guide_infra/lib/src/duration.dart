@@ -5,5 +5,7 @@ class Durations {
 
   static Duration get medium => const Duration(milliseconds: 370);
 
-  static Duration get slow => const Duration(milliseconds: 700);
+  static Duration get slow => const Duration(milliseconds: 500);
+
+  static Duration get verySlow => const Duration(milliseconds: 700);
 }

@@ -61,6 +61,7 @@ class CustomExpansionTile extends StatefulWidget {
     this.iconColor,
     this.collapsedIconColor,
     this.controlAffinity,
+    this.disableTouch = false,
   })  : assert(
           expandedCrossAxisAlignment != CrossAxisAlignment.baseline,
           'CrossAxisAlignment.baseline is not supported since the expanded children '
@@ -75,6 +76,8 @@ class CustomExpansionTile extends StatefulWidget {
   /// Note that depending on the value of [controlAffinity], the [leading] widget
   /// may replace the rotating expansion arrow icon.
   final Widget? leading;
+
+  final bool disableTouch;
 
   /// The primary content of the list item.
   ///
@@ -344,7 +347,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> with SingleTi
         children: <Widget>[
           GestureDetector(
             behavior: HitTestBehavior.translucent,
-            onTap: _handleTap,
+            onTap: widget.disableTouch ? null : _handleTap,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Row(

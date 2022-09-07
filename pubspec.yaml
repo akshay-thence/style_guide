@@ -7,7 +7,10 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  bloc: ^8.0.3
+  bloc: ^8.1.0
+  dotted_border: ^2.0.0+2
+  dynamic_cached_fonts: ^1.0.0
+  firebase_core: ^1.21.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
@@ -17,13 +20,20 @@ dependencies:
   google_fonts: ^3.0.1
   intl: ^0.17.0
   pixel_perfect: ^1.1.1
+
   style_guide_infra:
     path: packages/style_guide_infra
+  style_guide_repository:
+    path: packages/style_guide_repository
   style_guide_ui:
     path: packages/style_guide_ui
 
+  uuid: ^3.0.6
+
 dev_dependencies:
   bloc_test: ^9.0.3
+  change_app_package_name: ^1.1.0
+  flutter_launcher_icons: ^0.10.0
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
@@ -34,5 +44,8 @@ flutter:
   generate: true
 
   assets:
+  - assets/app_icon/
   - assets/svg/icons/
   - assets/screenshots/
+  - assets/images/
+  - assets/json/

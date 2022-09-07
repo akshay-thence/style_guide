@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_interpolation_to_compose_strings
+
 import 'dart:math';
 
 import 'package:flutter/gestures.dart';

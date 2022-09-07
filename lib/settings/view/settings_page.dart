@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pixel_perfect/pixel_perfect.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 import 'package:thence_style_guide/routes.dart';
@@ -14,32 +13,28 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return PixelPerfect(
-      assetPath: 'assets/screenshots/Settings.png',
-      scale: 2,
-      child: CustomScaffold(
-        appBar: const CustomAppBar(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: Text(
-                l10n.settings,
-                style: AppTextStyle.h1,
-              ),
+    return CustomScaffold(
+      appBar: const CustomAppBar(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Text(
+              l10n.settings,
+              style: AppTextStyle.h1,
             ),
-            ...List.generate(
-              _settings.length,
-              (index) => _ListTile(
-                title: _settings[index].title,
-                subTitle: _settings[index].subTitle,
-                icon: _settings[index].icon,
-                onTap: () => Navigator.of(context).pushNamed(_settings[index].routeName),
-              ),
-            )
-          ],
-        ),
+          ),
+          ...List.generate(
+            _settings.length,
+            (index) => _ListTile(
+              title: _settings[index].title,
+              subTitle: _settings[index].subTitle,
+              icon: _settings[index].icon,
+              onTap: () => Navigator.of(context).pushNamed(_settings[index].routeName),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -10,16 +10,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.height = 56,
     this.subTitle,
     this.title,
+    this.trailingIcon,
+    this.onTrailingIconTap,
   });
 
   @override
   Size get preferredSize => Size.fromHeight(subTitle == null ? height : 78);
 
   final bool centerTitle;
+
   final bool showBackButton;
   final double height;
+
   final String? subTitle;
   final String? title;
+
+  final String? trailingIcon;
+  final VoidCallback? onTrailingIconTap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +41,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  constraints: const BoxConstraints(),
-                  padding: EdgeInsets.zero,
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: SvgPicture.asset(
-                    AppIcons.arrowBack,
+                if (showBackButton) ...[
+                  IconButton(
+                    constraints: const BoxConstraints(),
+                    padding: EdgeInsets.zero,
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: SvgPicture.asset(
+                      AppIcons.arrowBack,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
+                  const SizedBox(width: 12),
+                ],
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +71,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 24),
+                if (trailingIcon != null)
+                  IconButton(
+                    constraints: const BoxConstraints(),
+                    padding: EdgeInsets.zero,
+                    icon: SvgPicture.asset(
+                      trailingIcon!,
+                      color: AppColor.black,
+                    ),
+                    onPressed: onTrailingIconTap,
+                  )
+                else
+                  const SizedBox(width: 24),
               ],
             ),
           ),

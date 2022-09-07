@@ -7,5 +7,13 @@
     "changeColors":"Change colors",
     "chooseColorForYourProject":"Choose colors for your project",
     "settings":"Settings",
-    "colors":"Colors"
+    "colors":"Colors",
+    "skip" :"Skip",
+    "add" :"Add",
+    "done" :"Done",
+    "dialogBoxAddPrimaryColorTitle" :"Add a primary color",
+    "dialogBoxAddPrimaryColorDesc": "It's your brand's identity color used mostly\nfor buttons and common CTAs",
+    "dialogBoxColorAddedTitle":"Primary color added",
+    "dialogBoxColorAddedDesc":"A pre-made palette for neutral & semantic color is added. You can edit in the next step."
+    
 }

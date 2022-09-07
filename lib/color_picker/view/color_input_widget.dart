@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
-import 'package:thence_style_guide/utils/extensions.dart';
 
 import '../cubit/color_picker_cubit.dart';
 
@@ -23,6 +22,18 @@ class ColorInputWidget extends StatelessWidget {
       }
     }
 
+    void selectColor() {
+      FocusManager.instance.primaryFocus?.unfocus();
+      context.read<ColorPickerCubit>().updateTextFieldFocus(isFocused: false);
+    }
+
+    void voidDiscardColor() {
+      FocusManager.instance.primaryFocus?.unfocus();
+      context.read<ColorPickerCubit>()
+        ..updateTextFieldFocus(isFocused: false)
+        ..resetColorToPreviousState();
+    }
+
     return BlocConsumer<ColorPickerCubit, ColorPickerState>(
       listener: (context, state) {
         controller.text = state.selectedColor!.toHexTriplet();
@@ -33,7 +44,11 @@ class ColorInputWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _iconButton(AppIcons.cross, AppColor.lightGrey4, () {}),
+              _iconButton(
+                AppIcons.cross,
+                AppColor.lightGrey4,
+                onTap: voidDiscardColor,
+              ),
               AnimatedContainer(
                 duration: Durations.medium,
                 decoration: BoxDecoration(
@@ -99,7 +114,11 @@ class ColorInputWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              _iconButton(AppIcons.tick, AppColor.primary60, () {}),
+              _iconButton(
+                AppIcons.tick,
+                AppColor.primary60,
+                onTap: selectColor,
+              ),
             ],
           ),
         );
@@ -107,10 +126,11 @@ class ColorInputWidget extends StatelessWidget {
     );
   }
 
-  Widget _iconButton(String icon, Color color, VoidCallback onTap) {
+  Widget _iconButton(String icon, Color color, {required VoidCallback onTap}) {
     return BlocBuilder<ColorPickerCubit, ColorPickerState>(
       builder: (context, state) {
         return AnimatedOpacity(
+          curve: Curves.easeOut,
           duration: Durations.fastest,
           opacity: state.textFieldFocused ? 1 : 0,
           child: Container(

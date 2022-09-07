@@ -1,17 +1,79 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
+import 'package:style_guide_repository/style_guide_repository.dart';
 
+import 'package:thence_style_guide/typeface/cubit/import_fonts_cubit.dart';
+
+import '../../home/home.dart';
 import '../../l10n/l10n.dart';
+import '../../login/view/login_page.dart';
 import '../../routes.dart';
-import '../../settings/settings.dart';
+import '../../shared/cubit/auth/auth_bloc.dart';
+import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
+import '../../splash/view/splash_page.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({
+    super.key,
+    required this.googleFontsRepository,
+    required this.styleGuideRepository,
+  });
+
+  final GoogleFontsRepository googleFontsRepository;
+  final StyleGuideRepository styleGuideRepository;
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
+
+    return RepositoryProvider.value(
+      value: googleFontsRepository,
+      child: RepositoryProvider(
+        create: (context) => styleGuideRepository,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<SelectedStyleGuideCubit>(
+              create: (BuildContext context) => SelectedStyleGuideCubit(
+                styleGuideRepository: context.read<StyleGuideRepository>(),
+              ),
+            ),
+            BlocProvider<AllStyleGuideCubit>(
+              create: (BuildContext context) => AllStyleGuideCubit(
+                selectedStyleGuideCubit: context.read<SelectedStyleGuideCubit>(),
+                styleGuideRepository: context.read<StyleGuideRepository>(),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => AuthBloc(),
+            ),
+            BlocProvider(
+              create: (context) => ImportFontsCubit(context.read<GoogleFontsRepository>()),
+            )
+          ],
+          child: const AppView(),
+        ),
+      ),
+    );
+  }
+}
+
+class AppView extends StatelessWidget {
+  const AppView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: AppColor.mcprimary,
         backgroundColor: AppColor.background,
@@ -22,7 +84,18 @@ class App extends StatelessWidget {
       ],
       onGenerateRoute: AppRouter().onGenerateRoute,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const SettingPage(),
+      home: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state is Uninitialized) {
+            context.read<AuthBloc>().add(AppStarted());
+            return const SplashPage();
+          }
+          if (state is Unauthenticated) {
+            return const LoginPage();
+          }
+          return const HomePage();
+        },
+      ),
     );
   }
 }
