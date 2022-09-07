@@ -25,7 +25,7 @@ class AllColorCategoryWidget extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
             ColorCategoryWidget(
-              maxColorCount: 2,
+              maxColorCount: 1,
               colors: color.primary!,
               title: 'Primary',
               subtitle: 'Brand color used for buttons and actions',
@@ -36,6 +36,7 @@ class AllColorCategoryWidget extends StatelessWidget {
             const SizedBox(height: 10),
             ColorCategoryWidget(
               maxColorCount: 3,
+              minColorCount: 3,
               colors: color.semantic!,
               title: 'Semantic',
               subtitle: 'Success, error, warning, information',
@@ -45,8 +46,8 @@ class AllColorCategoryWidget extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             ColorCategoryWidget(
-              maxColorCount: 15,
               colors: color.neutral!,
+              minColorCount: 7,
               title: 'Neutral',
               subtitle: 'Text, container boarder, system icon',
               colorType: ColorType.neutral,
@@ -55,9 +56,9 @@ class AllColorCategoryWidget extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             ColorCategoryWidget(
-              maxColorCount: 15,
+              maxColorCount: 7,
               colors: color.secondary!,
-              title: 'Secondary Colour',
+              title: 'Secondary Color',
               subtitle: 'For highlight, acents, tags and graphs',
               colorType: ColorType.secondary,
               initiallyExpanded: initiallyExpanded,

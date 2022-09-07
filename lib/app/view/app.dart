@@ -10,9 +10,11 @@ import 'package:thence_style_guide/typeface/cubit/import_fonts_cubit.dart';
 
 import '../../home/home.dart';
 import '../../l10n/l10n.dart';
+import '../../login/view/login_page.dart';
 import '../../routes.dart';
 import '../../shared/cubit/auth/auth_bloc.dart';
 import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
+import '../../splash/view/splash_page.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -84,13 +86,13 @@ class AppView extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
-          // if (state is Uninitialized) {
-          //   context.read<AuthBloc>().add(AppStarted());
-          //   return const SplashPage();
-          // }
-          // if (state is Unauthenticated) {
-          //   return const LoginPage();
-          // }
+          if (state is Uninitialized) {
+            context.read<AuthBloc>().add(AppStarted());
+            return const SplashPage();
+          }
+          if (state is Unauthenticated) {
+            return const LoginPage();
+          }
           return const HomePage();
         },
       ),

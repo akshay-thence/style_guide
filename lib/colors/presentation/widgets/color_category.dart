@@ -19,6 +19,7 @@ class ColorCategoryWidget extends StatelessWidget {
     this.initiallyExpanded = false,
     this.showExpansionIcon = true,
     this.maxColorCount = 10,
+    this.minColorCount = 1,
   });
 
   final List<Color> colors;
@@ -28,10 +29,12 @@ class ColorCategoryWidget extends StatelessWidget {
   final bool initiallyExpanded;
   final bool showExpansionIcon;
   final int maxColorCount;
+  final int minColorCount;
 
   @override
   Widget build(BuildContext context) {
     Future<void> _addNewColor() async {
+      await AppHaptics.lightImpact();
       final newColor = await pickColor(context);
       if (newColor != null) {
         context.read<SelectedStyleGuideCubit>().addColor(colorType: colorType, color: newColor);
@@ -86,6 +89,7 @@ class ColorCategoryWidget extends StatelessWidget {
               color: colors[index],
               onEditColor: () => _editColor(index),
               onDeleteColor: () => _deleteColor(index),
+              canDelete: index + 1 > minColorCount,
             );
           },
         ),

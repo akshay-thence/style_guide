@@ -23,10 +23,8 @@ class ColorView extends StatelessWidget {
     final l10n = context.l10n;
 
     return CustomScaffold(
-      
       appBar: CustomAppBar(title: l10n.colors),
       body: SingleChildScrollView(
-
         child: Column(
           children: const [
             SizedBox(height: 16),

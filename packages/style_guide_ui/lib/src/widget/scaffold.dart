@@ -7,20 +7,23 @@ class CustomScaffold extends StatelessWidget {
     Key? key,
     this.appBar,
     this.body,
+    this.floatingActionButton,
   }) : super(key: key);
 
   final PreferredSizeWidget? appBar;
   final Widget? body;
+  final Widget? floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.lightGrey4,
+      backgroundColor: const Color(0xffF7F9FC),
+      floatingActionButton: floatingActionButton,
       appBar: appBar,
       body: Stack(
         children: [
           Container(
-            height: 293,
+            height: MediaQuery.of(context).size.height / 2,
             width: double.infinity,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -28,7 +31,7 @@ class CustomScaffold extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   AppColor.white,
-                  AppColor.lightGrey4,
+                  Color(0xffF7F9FC),
                 ],
               ),
             ),

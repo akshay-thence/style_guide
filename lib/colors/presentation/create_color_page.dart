@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 import 'package:style_guide_ui/style_guide_ui.dart';
 
-import '../../shared/cubit/selected_style_guide/selected_style_guide_cubit.dart';
+import '../../routes.dart';
 import 'widgets/all_color_category.dart';
 
 class CreateColorPage extends StatelessWidget {
@@ -12,10 +11,7 @@ class CreateColorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: CustomAppBar(
-        trailingIcon: AppIcons.settings,
-        onTrailingIconTap: () {},
-      ),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -30,8 +26,8 @@ class CreateColorPage extends StatelessWidget {
               child: AppButton(
                 title: 'Create Style Guide',
                 onTap: () {
-                  // Navigator.of(context).pushNamed(AppRouter.indexPage);
-                  context.read<SelectedStyleGuideCubit>().createNewStyleGuide();
+                  Navigator.of(context).pushNamed(AppRouter.indexPage);
+                  // context.read<SelectedStyleGuideCubit>().createNewStyleGuide();
                 },
               ),
             )

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:style_guide_infra/style_guide_infra.dart';
 
 enum ButtonType { primary, outlined, disabled }
@@ -49,7 +50,10 @@ class AppButton extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: InkWell(
-        onTap: onTap,
+        onTap: () {
+          AppHaptics.lightImpact();
+          onTap!();
+        },
         borderRadius: BorderRadius.circular(16),
         splashColor: Colors.white.withOpacity(0.1),
         highlightColor: Colors.white.withOpacity(0.1),

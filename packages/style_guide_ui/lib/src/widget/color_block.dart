@@ -9,11 +9,13 @@ class ColorBlock extends StatelessWidget {
     required this.color,
     this.onEditColor,
     this.onDeleteColor,
+    this.canDelete = true,
   }) : super(key: key);
 
   final Color color;
   final VoidCallback? onEditColor;
   final VoidCallback? onDeleteColor;
+  final bool canDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +35,12 @@ class ColorBlock extends StatelessWidget {
             text: 'Edit color',
             onTap: onEditColor,
           ),
-          CustomPopListTile(
-            icon: AppIcons.delete,
-            text: 'Delete color',
-            onTap: onDeleteColor,
-          ),
+          if (canDelete)
+            CustomPopListTile(
+              icon: AppIcons.delete,
+              text: 'Delete color',
+              onTap: onDeleteColor,
+            ),
         ],
       );
     }

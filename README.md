@@ -167,3 +167,7 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 Get Google Font API key https://developers.google.com/fonts/docs/developer_api#APIKey
 AIzaSyAzLcmCrna0aQCwrMlHOCgk2dlf8bkhjxM
 flutterfire configure -i co.thence.styleguide.dev -a co.thence.styleguide.dev -o lib/firebase/prod/firebase_options.dart --no-apply-gradle-plugins --no-app-id-json
+
+
+## Building 
+  keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 100000 -alias upload
